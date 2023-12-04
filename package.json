@@ -1,0 +1,20 @@
+{
+  "name": "miniprogram-ts-less-quickstart",
+  "version": "1.0.0",
+  "scripts": {},
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@vant/weapp": "^1.10.13"
+  },
+  "devDependencies": {
+    "miniprogram-api-typings": "^2.8.3-1"
+  },
+  "main": ".eslintrc.js",
+  "repository": {
+    "type": "git",
+    "url": "git@git.zhetuitui.com:fengyia/starway-weapp-ui.git"
+  },
+  "description": ""
+}

@@ -1,0 +1,34 @@
+<view class="receptacle">
+    <!-- <view class="bgc">
+        <view class="title" wx:if="{{title}}">{{title}}</view>
+        <view class="subtitle" wx:if="{{sub_title}}">{{sub_title}}</view>
+    </view> -->
+
+    <view class="box">
+        <view class="table">{{table}}</view>
+        <view class="card_box" wx:for="{{list}}" wx:key="index">
+            <view class="row_c">
+                <view class="check">
+                    <view class="line"></view>
+
+                    <text wx:if="{{item.batch!=0}}"> 第{{item.batch}}次下单</text>
+                    <text wx:if="{{item.batch===0}}"> 其他费用</text>
+                </view>
+                <!-- <view wx:if="{{item.state===0}}" class="wat">等待服务员确认加菜....</view>
+                <view wx:if="{{item.state===1}}" class="wat">下单成功，坐等开吃</view>
+                <view wx:if="{{item.state<0}}" class="wat">已关闭</view> -->
+            </view>
+
+            <view class="card" wx:for="{{item.item_list}}" wx:for-item="food" wx:key="index">
+                <image src="{{food.cover_url}}" class="img1" mode="" />
+                <view class="center">
+                    <view class="title">{{food.title}}</view>
+                    <view class="num">x{{food.num}}份</view>
+                </view>
+                <view class="right">￥{{food.price_total_str}}</view>
+            </view>
+        </view>
+
+    </view>
+    <view class="placeholder"></view>
+</view>

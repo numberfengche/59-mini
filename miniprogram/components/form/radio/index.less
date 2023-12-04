@@ -1,0 +1,42 @@
+/* components/form/radio/index.wxss */
+.radio {
+    display: flex;
+    justify-content: flex-start;
+    height: 40rpx;
+
+
+    .icon {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-right: 8rpx;
+
+        image {
+            width: 28rpx;
+            height: 28rpx;
+        }
+    }
+
+    .label {
+        color: rgba(51, 51, 51, 1);
+        font-size: 28rpx;
+        font-weight: 400;
+        font-family: "PingFang SC";
+
+        &.active {
+            color: rgba(235, 72, 63, 1);
+            .tip{
+                color: rgba(235, 72, 63, 1);
+            }
+        }
+
+        .tip{
+            color: rgba(153,153,153,1);
+            font-size: 24rpx;
+            font-weight: 400;
+            font-family: "PingFang SC";
+            text-align: left;
+            // margin-left: 8rpx;
+        }
+    }
+}

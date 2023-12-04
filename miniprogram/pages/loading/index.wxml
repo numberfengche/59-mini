@@ -1,0 +1,18 @@
+<!--pages/loading/index.wxml-->
+<!-- <view class="con">
+    <van-loading size="80rpx" type="spinner" />
+</view> -->
+<view class="img_box">
+    <image src="/assets/images/bmj1.jpg" class="bmg" mode="" />
+    <view class="welcome">牦牛快跑
+        <view class="shop_name">欢迎点餐</view>
+    </view>
+    <view class="select">
+        <view class="num">
+            <view class="title">请选择就餐人数</view>
+        </view>
+        <radio></radio>
+
+        <view class="button" bind:tap="getnum">立即点餐</view>
+    </view>
+</view>

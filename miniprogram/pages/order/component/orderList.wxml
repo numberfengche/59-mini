@@ -1,0 +1,17 @@
+<scroll-view class="scroll" scroll-y bindscrolltolower="loadMore">
+   <view>
+    <view class="category">
+        <van-tabs id="tabs" bind:change="changeTab" ellipsis="{{false}}" 
+        active="{{classify}}"
+        title-active-color="#9B7B4E" title-inactive-color="#666666" color="#9B7B4E" line-width="{{28}}" line-height="{{2}}">
+            <!-- active="{{ searchInformation.cid_type }}" -->
+            <van-tab style="padding-left: 0 !important" title="全部" name="-1" />
+            <van-tab style="padding-left: 0 !important" title="待付款" name="0" />
+            <van-tab style="padding-left: 0 !important" title="待发货" name="1" />
+            <van-tab style="padding-left: 0 !important" title="待收货" name="2" />
+            <van-tab style="padding-left: 0 !important" title="退款" name="99" />
+        </van-tabs>
+    </view>
+    <obligation wx:for="{{dataList}}" wx:key="index" />
+   </view>
+</scroll-view>

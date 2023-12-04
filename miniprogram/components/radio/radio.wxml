@@ -1,0 +1,14 @@
+<view class="item_row">
+    <view class="{{select_type===item.key?'item1':'item'}}" wx:for="{{list}}" wx:key="index" bind:tap="changeNum" data-id="{{item.key}}" data-num="{{index}}">{{item.name}}</view>
+    <van-dialog
+  use-slot
+  title="请输入就餐人数"
+  show="{{ show }}"
+  show-cancel-button
+  bind:close="onClose"
+  bind:confirm="onConfirm"
+>
+<input  class="input1"  bindinput="bindKeyInput" class="weui-input" type="number"  />
+</van-dialog>
+</view>
+<!-- border="{{ false }}" -->

@@ -1,0 +1,34 @@
+<view class="articles_card">
+    <view class="user" bind:tap="goDetail" data-id="{{source.article_id}}">
+        <image src="{{source.author_avatar_url}}" class="avatar" mode="" />
+        <view class="user_info">
+            <view class="user_name">{{source.author_name}}</view>
+            <view class="user_title">{{source.author_signature}}</view>
+        </view>
+    </view>
+
+    <view class="article_title" bind:tap="goDetail" data-id="{{source.article_id}}">{{source.title}}</view>
+    <view class="article_sub" bind:tap="goDetail" data-id="{{source.article_id}}">{{source.sub_title}}</view>
+    <image class="img_mine" src="{{source.cover_url}}" alt="" />
+    <view class="transmit_row">
+        <view class="creat_time">{{source.create_time}}</view>
+        <view class="transmit_left">
+            <view class="transmit" bind:tap="ontransmit" data-id="{{source.article_id}}">
+                <image class="img_transmit" src="/assets/images/article/transmit.png" mode="" />
+                <text>{{source.share_count}}</text>
+            </view>
+            <block wx:if="{{!source.is_digg}}">
+              <view class="transmit" bind:tap="onlike" data-id="{{source.article_id}}">
+                <image class="img_transmit" src="/assets/images/article/like.png" mode="" />
+                <text>{{source.digg_count}}</text>
+            </view>
+            </block>
+            <block wx:else="{{source.is_digg}}">
+                <view class="transmit" >
+                <image class="img_transmit" src="/assets/images/article/like_select.png" mode="" />
+                <text>{{source.digg_count}}</text>
+            </view>
+            </block>
+        </view>
+    </view>
+</view>

@@ -1,0 +1,11 @@
+<!--components/form/radio/index.wxml-->
+<view class="radio" >
+   <view class="icon">
+     <image src="/assets/images/iconRadiobox-on@2x.png" wx:if="{{checked}}" />
+    <image src="/assets/images/icon-Radiobox-off@2x.png" wx:if="{{!checked}}" />
+   </view>
+   <view wx:if="{{label!=''}}" class="{{checked?' label active':'label'}}">
+        {{label}}
+        <text class="tip">{{tip}}</text>
+   </view>
+</view>

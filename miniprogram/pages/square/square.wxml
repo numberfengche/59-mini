@@ -1,0 +1,39 @@
+<nav name="{{name}}"></nav>
+<view class="placeholder"></view>
+<view class='box'>
+    <scroll-view scroll-y scroll-with-animation style="width:180rpx">
+        <view class='nav1'>
+            <view wx:for="{{navList}}" wx:key='category_id' class="title {{item.category_id == active ?'select':''}}" data-index='{{item.category_id}}' bindtap='activeNav'>
+            {{item.category_name}}
+            <view class="num_select" wx:if="{{item.category_cart_num>0}}" >{{item.category_cart_num}}</view>
+            </view>
+        </view>
+    </scroll-view>
+    <!-- scroll-with-animation -->
+    <scroll-view scroll-y class="card_con"  scroll-into-view="{{selectId}}"
+       >
+        <view class='content'>
+            <view id='{{"item"+item.category_id}}' class='subtitle' wx:for="{{navList}}" wx:key='index'>
+            <view class="foods"><view class="line1"></view>{{item.category_name}}<view class="line1"></view></view>
+              <productCard wx:for="{{item.item_list}}" wx:for-item="food" wx:key="index" item="{{food}}" bind:myevent="getnum"  bind:myevn="getfoods"></productCard>
+            </view>
+        </view>
+    </scroll-view>
+</view>
+<view class="placeholder1"></view>
+<view class="fixed_b">
+    <van-goods-action >
+  <van-goods-action-icon icon="cart-o" text="购物车" info="{{num}}" bind:tap="showsheet" />
+  <van-goods-action-button disabled="{{list.length===0}}" text="选好了" bind:click="onClickButton" />
+</van-goods-action>
+</view>
+<van-action-sheet class="sheet" bind:click-overlay="click" close-on-click-overlay="{{true}}" round="{{false}}" show="{{ show }}" bind:close="onClose">
+    <view class="car">
+      <view class="toprow">
+      <view class="title_row">已选菜品</view>
+      <view class="title_icon" bind:tap="clear"><van-icon class="icon_de" name="delete-o" />清空购物车</view>
+      </view>
+      <Card wx:for="{{list}}" wx:key="index" item="{{item}}" bind:myevent="getnum" bind:myevn="getfoods" ></Card>
+
+    </view>
+</van-action-sheet>

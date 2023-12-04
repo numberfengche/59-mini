@@ -1,0 +1,96 @@
+.articles_card {
+    width: 750rpx;
+    height: 900rpx;
+    margin-top: 32rpx;
+    background: #fff;
+    padding: 40rpx 28rpx;
+
+    .user {
+        display: flex;
+
+        .avatar {
+            width: 80rpx;
+            height: 80rpx;
+            border-radius: 50%;
+            background-color: blue;
+            margin-right: 12rpx;
+        }
+
+        .user_name {
+            font-size: 28rpx;
+            font-family: PingFang SC-Regular, PingFang SC;
+            font-weight: 400;
+            color: #1A1A1A;
+        }
+
+        .user_title {
+            margin-top: 8rpx;
+            font-size: 22rpx;
+            font-family: PingFang SC-Regular, PingFang SC;
+            font-weight: 400;
+            color: #888888;
+        }
+    }
+
+    .article_title {
+        font-size: 32rpx;
+        font-family: PingFang SC-Regular, PingFang SC;
+        font-weight: 400;
+        color: #1A1A1A;
+        margin-top: 34rpx;
+    }
+
+    .article_sub {
+        font-size: 26rpx;
+        margin-top: 16rpx;
+        font-family: PingFang SC-Regular, PingFang SC;
+        font-weight: 400;
+        color: #888888;
+        overflow: hidden;
+        word-break: break-all;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
+    }
+
+    .img_mine {
+        width: 460rpx;
+        height: 460rpx;
+        margin: 32rpx 0;
+    }
+
+    .transmit_row {
+        display: flex;
+        justify-content: space-between;
+
+        .creat_time {
+            font-size: 24rpx;
+            font-family: PingFang SC-Regular, PingFang SC;
+            font-weight: 400;
+            color: #BBBBBB;
+        }
+
+        .transmit_left {
+            display: flex;
+
+            .transmit {
+                display: flex;
+                margin-left: 52rpx;
+            }
+
+            .img_transmit {
+                width: 36rpx;
+                height: 36rpx;
+                margin-right: 4rpx;
+            }
+
+            text {
+                font-size: 24rpx;
+                font-family: PingFang SC-Regular, PingFang SC;
+                font-weight: 400;
+                color: #333333;
+            }
+        }
+    }
+}

@@ -1,0 +1,20 @@
+<view class="goods_info">
+    <view class="price">
+        <view class="price_title">商品金额</view>
+        <view class="total">￥{{info.price}}</view>
+    </view>
+    <view class="price">
+        <view class="price_title">积分金额</view>
+        <view class="total">{{info.points}}个</view>
+    </view>
+    <view class="price">
+        <view class="price_title">运费</view>
+        <view class="total">￥{{info.postage}}</view>
+    </view>
+    <view class="footing">合计</view>
+    <view class="price_total">
+    <text wx:if="{{info.price>0}}">￥{{info.price}}</text>
+    <text wx:if="{{info.price>0 && info.points>0}}" class="add_icon">+</text>
+    <text wx:if="{{info.points>0}}">{{info.points}}积分</text>
+    </view>
+</view>

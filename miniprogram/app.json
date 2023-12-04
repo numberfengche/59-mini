@@ -1,0 +1,24 @@
+{
+    "pages": [
+        "pages/index/index",
+        "pages/square/square",
+        "pages/mine/mine",
+        "pages/order/order",
+        "pages/deskScan/index",
+        "pages/payment/index",
+        "pages/check/index",
+        "pages/search/index",
+        "pages/loading/index"
+    ],
+    "window": {
+        "backgroundTextStyle": "light",
+        "navigationBarBackgroundColor": "#fff",
+        "navigationBarTitleText": "牦牛快跑",
+        "navigationBarTextStyle": "black"
+       
+    },
+    "usingComponents": {
+        "van-action-sheet": "@vant/weapp/action-sheet/index"
+    },
+    "sitemapLocation": "sitemap.json"
+}

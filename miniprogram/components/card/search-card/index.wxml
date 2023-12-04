@@ -1,0 +1,17 @@
+<view class="card">
+    <view class="img_con">
+        <image src="{{item.cover_urls[0]}}" class="card_img" mode="" />
+        <view wx:if="{{item.stock<=10&&item.stock>0}}" class="stock">仅剩{{item.stock}}份</view>
+        <view wx:if="{{item.stock===0}}" class="stock">卖光了~</view>
+    </view>
+
+    <view class="product_info">
+        <view class="product_name">{{item.title}}</view>
+        <view class="price_row">
+            <view class="left">￥{{item.price_str}}</view>
+            <view class="right">
+                <van-stepper custom-class="right_ste" disable-plus="{{value>=item.stock && item.stock>=0 }}" min="{{0}}" value="{{ value }}" theme="round" data-id="{{index}}" bind:change="onchange" bind:plus="onStepperChange" bind:change="onchange" bind:minus="onminus" input-width="20px" button-size="20px" />
+            </view>
+        </view>
+    </view>
+</view>
