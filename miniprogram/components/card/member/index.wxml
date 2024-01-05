@@ -1,0 +1,16 @@
+<view class="card">
+  <view class="card_img"></view>
+  <view class="card_info">
+<view class="top">
+  <view class="title">59精酿啤酒1000ml*6罐装</view>
+    <view class="desc">原汁原味，饱满酒香</view>
+</view>
+    <view class="price_row">
+      <view class="price">
+        <view class="unit">￥</view>
+        <view class="newprice">37.91</view>
+        <view class="oldprice">￥39.91</view>
+      </view>
+    </view>
+  </view>
+</view>

@@ -6,7 +6,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@vant/weapp": "^1.10.13"
+    "@vant/weapp": "^1.11.2"
   },
   "devDependencies": {
     "miniprogram-api-typings": "^2.8.3-1"

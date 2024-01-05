@@ -1,3 +1,0 @@
-<view class="con">
-    <van-loading size="80rpx" type="spinner" />
-</view>

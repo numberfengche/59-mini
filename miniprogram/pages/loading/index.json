@@ -1,8 +1,0 @@
-{
-    "usingComponents": {
-      "radio": "/components/radio/radio"
-    },
-    "navigationBarTitleText": "选择人数",
-    "disableScroll": true
-   
-  }

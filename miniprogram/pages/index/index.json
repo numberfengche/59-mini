@@ -1,6 +1,0 @@
-{
-  "usingComponents": {
-    "van-empty": "@vant/weapp/empty/index"
-  },
-  "navigationBarTitleText": "牦牛快跑"
-}
