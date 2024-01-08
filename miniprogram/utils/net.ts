@@ -4,6 +4,7 @@ interface IParams {
     url: string;
     method?: "POST" | "GET";
     data?: any;
+    // token?:boolean;
     success?: Function;
     fail?: Function;
     showMessage?: boolean;
@@ -11,12 +12,13 @@ interface IParams {
 
 export const request = async ({ url, method, data, success, fail, showMessage = true }: IParams) => {
     const domain = getApp().globalData.domain;
-   const { token: Authorization } = await login();
+    const token = getApp().globalData.token;
+  //  const { token: Authorization } = await login();
     wx.request({
         url:`${domain}${url}`,
         method: method === "POST" ? "POST" : "GET",
         data,
-        header: { "content-type": "application/json", Authorization },
+        header: { "content-type": "application/json", Authorization:token },
         success: (res: any) => {
             const {
                 statusCode,

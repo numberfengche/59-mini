@@ -1,0 +1,14 @@
+<view class="card">
+  <image src="https://59beer.oss-cn-chengdu.aliyuncs.com/mini/combo.png" class="card_img" mode="" />
+  <view class="price_row">
+    <view class="price">
+      <view class="unit">￥</view>
+      <view class="newprice">{{item.item_list[0].price_vip_str}}</view>
+    </view>
+    <view class="stepper_controller">
+      <image wx:if="{{num>0}}" bind:tap="reduce" class="reduce_controller" src="/assets/images/reduce.svg" mode="" />
+      <view wx:if="{{num>0}}" class="num">{{num}}人</view>
+      <image bind:tap="add" class="add_controller" src="/assets/images/add.svg" mode="" />
+    </view>
+  </view>
+</view>

@@ -1,3 +1,5 @@
+import { request } from "../../utils/net";
+
 // pages/goods/goods.ts
 Page({
 
@@ -9,30 +11,41 @@ Page({
     top: wx.getMenuButtonBoundingClientRect().top,
     select: true,
     active: 0,
-    navList:[
-     {
-      category_id:0,
-      category_name:"畅饮系列"
-     },
-     {
-      category_id:1,
-      category_name:"原浆精酿"
-     },
-     {
-      category_id:2,
-      category_name:"进口风味"
-     }
-     ,{
-      category_id:3,
-      category_name:"国产风味"
-     },
-    ]
+    navList:[],
+    swiggerList:[],
+    goodsList:[]
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad() {
+  onLoad(options:any) {
+ console.log(options);
+ const {scene }=options;
+ console.log(scene);
+ 
+ this.getMenu(scene);
+//  this.getCartNum(scene);
+  },
+
+   //获取菜品信息
+  getMenu(scene:string){
+   request({
+      url: "/api/beer/minic/order/menu",
+      data: {scene},
+      success: ({data}:any) => {
+        console.log(data);
+        console.log(data.category_list.slice(0,1),);
+        
+        this.setData({
+          navList:data.category_list,
+          swiggerList:data.category_list.slice(0,1),
+          goodsList:data.category_list.slice(1),
+        })
+      },
+    });
+  },
+  getCartNum(scene:string){
 
   },
   activeNav(e: any) {
@@ -59,6 +72,9 @@ Page({
   onReady() {
 
   },
+   
+  
+
 
   /**
    * 生命周期函数--监听页面显示
@@ -87,14 +103,37 @@ Page({
   onPullDownRefresh() {
 
   },
-
+   
   /**
    * 页面上拉触底事件的处理函数
    */
   onReachBottom() {
 
   },
-
+  getPhoneNumber(e: any) {
+    console.log(e.detail.code);
+    console.log(e);
+    // this.setData({ loading: true });
+    // request({
+    //   url: "/api/mp/user/save-phone",
+    //   method: "POST",
+    //   data: { code: e.detail.code },
+    //   success: () => {
+    //     this.setData({ loading: false });
+    //     wx.reLaunch({ url: "/pages/profile/index" });
+    //     // wx.showToast({
+    //     //   title: "登录成功",
+    //     //   icon: "success",
+    //     //   success: () => {
+    //     //     wx.reLaunch({ url: "pages/profile/index" });
+    //     //   },
+    //     //   fail: () => {
+    //     //     this.setData({ loading: false });
+    //     //   },
+    //     // });
+    //   },
+    // });
+  },
   /**
    * 用户点击右上角分享
    */

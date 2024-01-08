@@ -1,6 +1,5 @@
 <view class="custorm_container">
   <view class="nav">
-    <image class="bgc" src="/assets/images/background.png" mode="" />
     <view class="search_row" style="height:{{navBarHeight - top}}px; top: {{top}}px;">
       <image class="home" src="/assets/images/home.svg" mode="" />
       <van-search class="van-search" shape="round" background="transparent" placeholder="请输入商品名称" />
@@ -15,35 +14,35 @@
     </view>
   </view>
   <view class="list" style="height: calc(100vh - {{top}}px - 182rpx - 192rpx);">
-  <image src="/assets/images/guidance.svg" mode="" class="guidance"/>
-   <view class="container_list">
-<scroll-view scroll-y scroll-with-animation style="width:180rpx">
+    <image src="/assets/images/guidance.svg" mode="" class="guidance" />
+    <view class="container_list" style="height: calc(100vh - {{top}}px - 182rpx - 192rpx - 70rpx);">
+      <scroll-view scroll-y scroll-with-animation style="width:180rpx">
         <view class='nav1'>
-            <view wx:for="{{navList}}" wx:key='category_id'  class="{{item.category_id === active ?'select_nav':(item.category_id === active + 1 ? 'title-next' : 'title')}}"   data-index='{{item.category_id}}' bindtap='activeNav'>
-            <view class="{{item.category_id === active ?'line':'line_placeholder'}}"></view>
+          <view wx:for="{{navList}}" wx:forindex="index" wx:key='category_id' class="{{index === active ?'select_nav':(index === active + 1 ? 'title-next' : 'title')}}" data-index='{{index}}' bindtap='activeNav'>
+            <view class="{{index === active ?'line':'line_placeholder'}}"></view>
             {{item.category_name}}
             <view class="line_placeholder"></view>
-            </view>
+          </view>
         </view>
-    </scroll-view>
-    <scroll-view scroll-y class="card_con"  scroll-into-view="{{selectId}}"
-       >
+      </scroll-view>
+      <scroll-view scroll-y class="card_con" scroll-into-view="{{selectId}}">
         <view class='content'>
-        <member-card></member-card>
-            <!-- <view id='{{"item"+item.category_id}}' class='subtitle' wx:for="{{navList}}" wx:key='index'>
-            <view class="foods"><view class="line1"></view>{{item.category_name}}<view class="line1"></view></view>
-            </view> -->
+          <swigger wx:for="{{swiggerList}}" wx:key="index" item="{{item}}"></swigger>
+          <view class="headline">畅饮套餐</view>
+          <view id='{{"item"+item.category_id}}' class='subtitle' wx:for="{{goodsList}}" wx:key='index'>
+            <member-card wx:for="{{item.item_list}}" wx:for-item="food" wx:key="index" item="{{food}}"></member-card>
+          </view>
         </view>
-    </scroll-view>
+      </scroll-view>
 
-   </view>
+    </view>
   </view>
   <!-- 登录弹窗 -->
   <van-dialog show="{{ false  }}" use-slot showConfirmButton="{{false}}">
     <view class="login_options">
-      <view class="title">获取手机号</view>
+      <view class="login_title">获取手机号</view>
       <view class="tips">使用手机号进入59精酿小程序</view>
-      <van-button type="primary" class="button">
+      <van-button type="primary" class="button" open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber">
         <view class="van_button">
           <image class="wx" src="/assets/images/weixin.svg" mode="" />
           微信一键获取
@@ -65,30 +64,30 @@
   <!-- 怎么喝 -->
   <van-dialog show="{{ false  }}" custom-style="top:410px!important" use-slot showConfirmButton="{{false}}">
     <view class="select_options">
-      <image class="select_bgc" src="/assets/images/howtoselect.svg" mode="widthFix" />
+      <image class="select_bgc" src="https://59beer.oss-cn-chengdu.aliyuncs.com/mini/bgc.png" mode="widthFix" />
       <view bind:tap="onclick" class="{{select?'select_item_select':'select_item'}}">
         <view class="item_left">
-         <view class="member_row">
-         <image src="/assets/images/member.png" mode="" class="member"/>
-         畅饮
-         </view>
-         <view class="sub">可享受会员价格和畅饮套餐</view>
+          <view class="member_row">
+            <image src="/assets/images/member.png" mode="" class="member" />
+            畅饮
+          </view>
+          <view class="sub">可享受会员价格和畅饮套餐</view>
         </view>
-       <view class="item_right">
-        <image src="/assets/images/more.svg" mode="" class="more"/>
-       </view>
+        <view class="item_right">
+          <image src="/assets/images/more.svg" mode="" class="more" />
+        </view>
       </view>
       <view bind:tap="onclick_select" class="{{select?'select_item':'select_item_select'}}">
         <view class="item_left">
-         <view class="member_row">
-         单点
-         </view>
-         <view class="sub">单点不划算，冲个会员吧~</view>
+          <view class="member_row">
+            单点
+          </view>
+          <view class="sub">单点不划算，冲个会员吧~</view>
         </view>
-       <view class="item_right">
-        <image src="/assets/images/more.svg" mode="" class="more"/>
-       </view>
-      
+        <view class="item_right">
+          <image src="/assets/images/more.svg" mode="" class="more" />
+        </view>
+
       </view>
     </view>
 

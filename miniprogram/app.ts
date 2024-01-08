@@ -66,16 +66,16 @@ interface globalData {
         
         switch (envVersion) {
           case "develop":
-            this.globalData.domain = "https://api-pre.keziyi.com";
+            this.globalData.domain = "https://api-pre.dongfangjiucang.com";
             break;
           case "trial":
-            this.globalData.domain = "https://api-pre.keziyi.com";
+            this.globalData.domain = "https://api.dongfangjiucang.com";
             break;
           case "release":
-            this.globalData.domain = "https://api.keziyi.com";
+            this.globalData.domain = "https://api.dongfangjiucang.com";
             break;
           default:
-            this.globalData.domain = "https://api-pre.keziyi.com";
+            this.globalData.domain = "https://api.dongfangjiucang.com";
             break;
         }
     let that=this;

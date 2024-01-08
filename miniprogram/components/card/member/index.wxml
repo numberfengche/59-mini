@@ -1,15 +1,20 @@
 <view class="card">
-  <view class="card_img"></view>
+  <image src="{{item.cover_url}}" class="card_img" mode=""/>
   <view class="card_info">
 <view class="top">
-  <view class="title">59精酿啤酒1000ml*6罐装</view>
-    <view class="desc">原汁原味，饱满酒香</view>
+  <view class="title">{{item.title}}</view>
+    <view class="desc">{{item.intro}}</view>
 </view>
     <view class="price_row">
       <view class="price">
         <view class="unit">￥</view>
-        <view class="newprice">37.91</view>
-        <view class="oldprice">￥39.91</view>
+        <view class="newprice">{{item.price_vip_str}}</view> 
+        <view class="oldprice">￥{{item.price_normal_str}}</view>
+      </view>
+      <view class="stepper_controller">
+      <image wx:if="{{num>0}}" bind:tap="reduce" class="reduce_controller" src="/assets/images/reduce.svg" mode=""/>
+      <view wx:if="{{num>0}}" class="num">{{num}}</view>
+      <image bind:tap="add" class="add_controller" src="/assets/images/add.svg" mode=""/>
       </view>
     </view>
   </view>

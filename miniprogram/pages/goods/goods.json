@@ -4,7 +4,8 @@
       "van-button": "@vant/weapp/button/index",
       "van-dialog": "@vant/weapp/dialog/index",
       "radio": "/components/radio/radio",
-      "member-card":"/components/card/member"
+      "member-card":"/components/card/member",
+      "swigger":"/components/card/swigger"
     },
     "navigationStyle": "custom"
 }

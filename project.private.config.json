@@ -10,6 +10,13 @@
             "list": [
                 {
                     "name": "",
+                    "pathName": "pages/goods/goods",
+                    "query": "scene=sv-uAhGPGpjNzdrxfDHlZQ",
+                    "launchMode": "default",
+                    "scene": null
+                },
+                {
+                    "name": "",
                     "pathName": "pages/deskScan/index",
                     "query": "scene=nlkX5HyPXOt-lyMwNdTNHA",
                     "launchMode": "default",
