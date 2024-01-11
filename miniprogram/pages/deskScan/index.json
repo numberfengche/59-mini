@@ -5,7 +5,10 @@
       "van-dialog": "@vant/weapp/dialog/index",
       "radio": "/components/radio/radio",
       "member-card":"/components/card/member",
-      "swigger":"/components/card/swigger"
+      "swigger":"/components/card/swigger",
+      "van-action-sheet": "@vant/weapp/action-sheet/index",
+      "numberkeyboard":"/components/numberkeyboard/index",
+      "member-popup":"/components/member-popup/index"
     },
     "navigationStyle": "custom"
 }

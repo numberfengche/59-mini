@@ -10,17 +10,24 @@
             "list": [
                 {
                     "name": "",
-                    "pathName": "pages/goods/goods",
-                    "query": "scene=sv-uAhGPGpjNzdrxfDHlZQ",
+                    "pathName": "pages/deskScan/index",
+                    "query": "scene=jf_2OPaMfEgP1Ti37tgj_Q",
                     "launchMode": "default",
                     "scene": null
                 },
                 {
                     "name": "",
                     "pathName": "pages/deskScan/index",
-                    "query": "scene=nlkX5HyPXOt-lyMwNdTNHA",
+                    "query": "scene=sv-uAhGPGpjNzdrxfDHlZQ",
                     "launchMode": "default",
                     "scene": 1011
+                },
+                {
+                    "name": "",
+                    "pathName": "pages/goods/goods",
+                    "query": "scene=sv-uAhGPGpjNzdrxfDHlZQ",
+                    "launchMode": "default",
+                    "scene": null
                 },
                 {
                     "name": "",

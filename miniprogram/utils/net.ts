@@ -25,13 +25,6 @@ export const request = async ({ url, method, data, success, fail, showMessage = 
                 data: { code, data, msg },
             } = res;
             if (statusCode === 401 || code === 401 || code === 2010) {
-                // wx.showToast({ title: "请登录", icon: "none" });
-                // if (getApp().env != "develop") {
-                // }
-                // setTimeout(() => {
-                //     wx.redirectTo({ url: "/pages/index/index" });
-                // }, 1000);
-
                 if (fail) {
                     fail(msg);
                 }
@@ -48,7 +41,6 @@ export const request = async ({ url, method, data, success, fail, showMessage = 
                         wx.showToast({ title: "操作失败，请稍后尝试", icon: "none" });
                     }
                 }
-
                 if (fail) {
                     fail(msg);
                 }
@@ -59,7 +51,6 @@ export const request = async ({ url, method, data, success, fail, showMessage = 
             if (showMessage) {
                 wx.showToast({ title: "操作失败，请稍后尝试", icon: "none" });
             }
-
             if (fail) {
                 fail(error.errMsg);
             }

@@ -1,6 +1,6 @@
 {
     "pages": [
-        "pages/goods/goods"
+      "pages/deskScan/index"
     ],
     "window": {
         "backgroundTextStyle": "light",

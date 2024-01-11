@@ -15,6 +15,7 @@ interface globalData {
     num:number//点餐人数索引,
     tabelnumber:string//桌号,
     shopName:string//店铺,
+    counting:number
   }
   
   interface IAppOption {
@@ -29,6 +30,7 @@ interface globalData {
     globalData: {
         domain:"",  // wx.getStorageSync('token'),
         token:"",
+        counting:1,//点餐人数
         navBarHeight: 0, // 导航栏高度,
         menuBotton: 0, // 胶囊距底部间距（保持底部间距一致）
         menuRight: 0, // 胶囊距右方间距（方保持左、右间距一致）
@@ -60,22 +62,23 @@ interface globalData {
         },
       });
     },
+    
     onLaunch() {
         const { envVersion } = wx.getAccountInfoSync().miniProgram;
         console.log(envVersion);
         
         switch (envVersion) {
           case "develop":
-            this.globalData.domain = "https://api-pre.dongfangjiucang.com";
+            this.globalData.domain = "https://api-pre.59beer.com";
             break;
           case "trial":
-            this.globalData.domain = "https://api.dongfangjiucang.com";
+            this.globalData.domain = "https://api.59beer.com";
             break;
           case "release":
-            this.globalData.domain = "https://api.dongfangjiucang.com";
+            this.globalData.domain = "https://api.59beer.com";
             break;
           default:
-            this.globalData.domain = "https://api.dongfangjiucang.com";
+            this.globalData.domain = "https://api.59beer.com";
             break;
         }
     let that=this;

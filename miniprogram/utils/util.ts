@@ -112,3 +112,60 @@ export const login = (globalData?: {  token: string; }) => {
       }
     });
   };
+
+
+
+  // 支付
+export const payment = (
+  vip_type: number,
+  onSuccess?: Function,
+  onFail?: Function,
+  onComplete?: Function
+) => {
+  request({
+    url: "/api/beer/minic/vip/open",
+    method: "POST",
+    data: { vip_type: vip_type },
+    success: ({ data }: any) => {
+      console.log(data);
+      
+      wx.requestPayment({
+        timeStamp:data.pay_params.timestamp.toString(),
+        nonceStr:data.pay_params.nonce,
+        package:data.pay_params.package,
+        signType:data.pay_params.sign_type,
+        paySign:data.pay_params.pay_sign,
+        success: function (res) {
+          onSuccess && onSuccess(res);
+          // wx.showToast({ title: "支付成功", icon: "none", duration: 2000 });
+          // wx.redirectTo({
+          //   url: "/pages/status/paysuccess/index",
+          // });
+          //2秒后主动查询支付状态,避免异步通知慢
+          setTimeout(() => {
+            request({
+              url: "/api/beer/minic/vip/result",
+              data: { log_id: data.log_id },
+              // showMessage: false,
+              success:({data}:any)=>{
+                console.log(data);
+              }
+            });
+          }, 2000);
+        },
+        fail: function (res) {
+          console.log(res);
+          onFail && onFail(res);
+          wx.showToast({ title: "支付失败", icon: "none", duration: 2000 });
+        },
+        complete: function (res) {
+          onComplete && onComplete(res);
+          // wx.showToast({ title: "", icon: "none", duration: 2000 });
+        },
+      });
+    },
+    fail: (res: any) => {
+      onFail && onFail(res);
+    },
+  });
+};

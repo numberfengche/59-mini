@@ -1,0 +1,26 @@
+<van-action-sheet show="{{ showKeyBoard }}">
+  <view class="mark">
+    <view class="top_card">
+      <view class="hint">请输入就餐人数</view>
+      <view class="num">{{number}} <text>人</text></view>
+    </view>
+    <view class="bottom">
+      <view class="num_container">
+        <view class="number">
+         <view class="menu_number" wx:for="{{num}}" wx:key="index">
+          <van-button bind:tap="addNum" data-id="{{item}}" type="default">{{item}}</van-button>
+         </view>
+        </view>
+        <view class="zero"> <van-button  bind:tap="addZero" data-id="0" type="default">
+        0
+        </van-button></view>
+      </view>
+      <view class="actions">
+      <view class="delete"><van-button bind:tap="delete"  type="default">    <image src="/assets/images/delete.svg" class="img" mode=""/></van-button> </view>
+      <view class="ok" bind:tap="onOk">
+      确定
+      </view>
+      </view>
+    </view>
+  </view>
+</van-action-sheet>

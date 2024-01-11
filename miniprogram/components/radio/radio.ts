@@ -38,17 +38,13 @@ Component({
             console.log(e.target.dataset.id);
             console.log(e.target.dataset.num);
             if(e.target.dataset.id===9){
-                // wx.onKeyboardHeightChange(res => {
-                //     console.log(res.height)
-                //   })
-                this.setData({
-                    show:true
-                })
+                this.triggerEvent('myevent')
             }else{
+              console.log(e.target.dataset.id);
                 this.setData({
                     select_type:e.target.dataset.id
                 })
-                getApp().globalData.num = e.target.dataset.id
+                getApp().globalData.counting=e.target.dataset.id+1
             }
            
         },
