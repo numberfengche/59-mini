@@ -1,3 +1,5 @@
+import { request } from "../../../utils/net";
+
 // components/card/swigger/index.ts
 Component({
 
@@ -6,17 +8,27 @@ Component({
      */
     properties: {
       item: { type: Object, value: {} },
+      num: { type: Number, value: 0 },
     },
     observers: {
       'item': function (val) {
           console.log(val);
+          this.setData({
+            number: val.item_list[0].cart_num
+          })
       },
+      // 'num': function (val) {
+      //   console.log(val);
+      //   this.setData({
+      //     number:val
+      //   })
+      // },
   },
     /**
      * 组件的初始数据
      */
     data: {
-      num:0
+      number:0
     },
 
     /**
@@ -24,16 +36,46 @@ Component({
      */
     methods: {
       add(){
-        this.setData({
-          num:this.data.num+1
-        })
+        this.changeCart(1)
       },
       reduce(){
-        if(this.data.num>0){
-          this.setData({
-            num:this.data.num-1
-          })
+        if(this.properties.item.item_list[0].cart_num>1){
+          this.changeCart(-1)
         }
+      },
+      changeCart(num:number){
+        request({
+          url: "/api/beer/minic/order/cart/modify",
+          method: "POST",
+          showMessage:false,
+          data: {
+            scene: getApp().globalData.scene,
+            item_id: this.properties.item.item_list[0].item_id,
+            action:num
+          },
+          success: ({ data,code }: any) => {
+            console.log(code);
+            if(code===0){
+              if(num>0){
+                this.setData({
+                  number:this.data.number+1
+                })
+              }else{
+                this.setData({
+                  number:this.data.number-1
+                })
+              }
+              this.triggerEvent('myevent');
+            }
+          },
+          fail:()=>{
+            // wx.showToast({
+            //   title:"您当前的饮酒模式为单点，若想改为畅饮，请联系服务人员",
+            //   icon:"none",
+            //   duration:2000
+            // })
+          }
+        });
       }
     }
 })

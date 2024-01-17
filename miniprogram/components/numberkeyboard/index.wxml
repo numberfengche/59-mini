@@ -1,4 +1,4 @@
-<van-action-sheet show="{{ showKeyBoard }}">
+<van-action-sheet  show="{{ showKeyBoard }}">
   <view class="mark">
     <view class="top_card">
       <view class="hint">请输入就餐人数</view>

@@ -1,0 +1,48 @@
+<view class="order">
+  <nav name="确认订单"></nav>
+  <scroll-view scroll-y class="scroll" style="height:calc(100vh - {{navBarHeight}}px  - 188rpx);">
+    <view class="card">
+      <view class="table__number">
+        <image class="talbe_img" src="/assets/images/table.svg" mode="" />
+        <view class="name">{{order.desk_name}}</view>
+      </view>
+
+      <view class="foods" wx:for="{{order.item_list}}" wx:key="index">
+        <view class="foods_img">
+          <image class="master_img" src="{{item.cover_url?item.cover_url:'https://59beer.oss-cn-chengdu.aliyuncs.com/mini/combo-icon.png'}}" mode=""/>
+          <view class="foods_info">
+            <view class="title">{{item.title}}</view>
+            <view class="num">x{{item.num}}</view>
+          </view>
+        </view>
+        <view class="price_info">
+          <view class="price">
+            <text>￥</text>{{item.item_price_total_str}}
+          </view>
+        </view>
+      </view>
+      <view class="line">
+        共1件商品,
+        <text class="price">会员卡减免¥{{order.vip_discount_total_str}}</text>
+        还需付款
+        <view class="pay_price"> <text>￥</text>{{order.price_total_str}}</view>
+      </view>
+
+    </view>
+    <view class="remark">
+      <view class="top_action">
+        <image class="image_re" src="/assets/images/remark.png" mode="" />
+        <view class="tips">口味、偏好等要求</view>
+      </view>
+      <textarea class="con" bindinput="getvalue" placeholder="留言建议（250字以内" placeholder-style="color:#BBBBBB;" value="{{remark}}" />
+    </view>
+  </scroll-view>
+  <view class="pay">
+    <view class="action">
+      <view class="pay_total">合计：￥<text>{{order.price_total_str}}</text></view>
+      <van-button bind:tap="pay">
+        立即支付
+      </van-button>
+    </view>
+  </view>
+</view>

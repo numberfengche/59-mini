@@ -1,0 +1,11 @@
+{
+    "usingComponents": {
+      "nav":"/components/nav/index",
+      "van-search": "@vant/weapp/search/index",
+      "van-icon": "@vant/weapp/icon/index",
+      "van-toast": "@vant/weapp/toast/index",
+      "van-loading": "@vant/weapp/loading/index",
+      "cart":"/components/card/search_card/index"
+    },
+    "navigationStyle": "custom"
+}

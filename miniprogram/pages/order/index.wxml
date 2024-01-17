@@ -1,0 +1,72 @@
+<view class="detail">
+<nav name="" white></nav>
+<view class="state">{{info.title}}</view>
+<view class="desc">{{info.sub_title}}</view>
+<scroll-view scroll-y class="scroll" style="height: calc(100vh - {{navBarHeight}}px - 310rpx );">
+  <view class="goods_card">
+   <view class="shop_name">{{info.shop_name}}</view>
+    <view wx:for="{{info.batch_list}}" wx:key="index">
+      <view class="order_info">
+        <view class="left">
+        <view class="times">第{{item.index}}次下单</view>
+        <view class="id">{{item.customer_mobile_tail}}</view>
+        </view>
+        <view class="right">{{item.state_str}}</view>
+        </view>
+
+        <view class="foods" wx:for="{{item.item_list}}" wx:key="index" wx:for-item="foods">
+            <view class="foods_img">
+              <image class="master_img" src="{{foods.cover_url?foods.cover_url:'https://59beer.oss-cn-chengdu.aliyuncs.com/mini/combo-icon.png'}}" mode=""/>
+              <view class="foods_info">
+                <view class="title">{{foods.title}}</view>
+                <view class="num">x{{foods.num}} </view>
+              </view>
+            </view>
+            <view class="price_info">
+              <view class="price">
+                <text>￥</text>{{item.price_total_str}}
+              </view>
+            </view>
+          </view>
+      <view wx:if="{{item.remark!=''}}" class="remark">备注：{{item.remark}}</view>
+      <view class="line"></view>
+    </view>
+  </view>
+   
+   <!-- <view class="price_card">
+    <view class="price_foods">
+    <view class="lable">商品金额</view>
+    <view class="price">￥{{info.price_total_str}}</view>
+    </view>
+   
+   <view class="discount">
+    <view class="lable">已优惠</view>
+    <view class="discount_price">￥{{info.vip_discount_total_str}}</view>
+   </view>
+   <view class="line"></view>
+   <view class="pay_price">
+   <text>实付款</text>
+   ￥{{info.price_total_str}}
+   </view>
+   </view> -->
+
+<!-- <view class="info_card">
+<view class="option">
+  <view class="label">订单号</view>
+<view class="value">{{info.trade_id}}</view>
+</view>
+<view class="option">
+  <view class="label">创建时间</view>
+<view class="value">{{info.create_time}}</view>
+</view>
+<view class="option">
+  <view class="label">支付时间</view>
+<view class="value">订单号</view>
+</view>
+</view> -->
+
+</scroll-view>
+<view class="mark">
+<view class="button_again" bind:tap="gohome">继续点餐</view>
+</view>
+</view>

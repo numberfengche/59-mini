@@ -6,8 +6,8 @@
       <view class="newprice">{{item.item_list[0].price_vip_str}}</view>
     </view>
     <view class="stepper_controller">
-      <image wx:if="{{num>0}}" bind:tap="reduce" class="reduce_controller" src="/assets/images/reduce.svg" mode="" />
-      <view wx:if="{{num>0}}" class="num">{{num}}人</view>
+      <image wx:if="{{item.item_list[0].cart_num>0}}" bind:tap="reduce" class="reduce_controller" src="/assets/images/reduce.svg" mode="" />
+      <view wx:if="{{item.item_list[0].cart_num>0}}" class="num">{{item.item_list[0].cart_num}}人</view>
       <image bind:tap="add" class="add_controller" src="/assets/images/add.svg" mode="" />
     </view>
   </view>

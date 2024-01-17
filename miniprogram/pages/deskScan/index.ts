@@ -1,5 +1,4 @@
 import { request } from "../../utils/net";
-
 Page({
   data: {
     navBarHeight: getApp().globalData.navBarHeight,//导航栏高度
@@ -8,11 +7,12 @@ Page({
     active: 0,
     navList: [],
     swiggerList: [],
-    goodsList: [],
+    goodsList: [] as any,
     showGetPhoneMenu: false,
     showDeskTypeMenu: false,
     showNumSheet: false,
     showKeyBoard: false,
+    showCartSheet: false,//cart
     passport: "",
     scene: "",
     is_vip: false,
@@ -21,18 +21,58 @@ Page({
     scrollPos: 0,
     topPos: [],
     scrolling: false, // 是否正在滚动
-    showBag:false,
-    showPriceSheet:false,
-    cartList:[],//购物车列表
-    category_list:[]//左侧数量
+    showBag: false,
+    showPriceSheet: false,
+    countOfMember: 0,//畅饮人数
+    cartList: [],//购物车列表
+    cartTotal: 0,
+    leftTotal: {},
+    isTopVipMenu:false,
+    isinit:false,
+    is_unpaid:false,//待处理订单
+    unpaidda_dialog:false
   },
   onLoad(options: any) {
     console.log(options);
     const { scene } = options;
     getApp().globalData.scene = scene,
-    console.log(scene);
-    this.setData({ scene: scene,showBag:false })
+      this.setData({ scene: scene, showBag: false })
     this.getMenu(scene);
+    const token = getApp().globalData.token;
+    const vip_expire_time = getApp().globalData.vip_expire_time;
+    // 检查VIP是否过期
+    if (token) {
+      let currentDate = new Date();
+      let expireDate = new Date(vip_expire_time);
+      let isExpired = currentDate > expireDate;
+      if (isExpired) {
+        console.log("已过期");
+        this.wxlogin()
+      } else {
+        console.log("未过期");
+        this.getsession()
+      }
+    } 
+    // else {
+    //   this.wxlogin()
+    // }
+  },
+  //静默
+  wxlogin() {
+    this.setData({
+      showBag: false
+    })
+    wx.login({
+      success: (res: any) => {
+        console.log(res);
+        this.silentLogin(res.code);
+      },
+      fail: () => {
+      },
+    });
+  },
+  //手动登录
+  manuallogin() {
     wx.login({
       success: (res: any) => {
         console.log(res);
@@ -56,14 +96,15 @@ Page({
             passport: data.passport,
           })
         } else {
+          //已登录
           this.setData({
-            showBag:true
+            showBag: true
           })
+          wx.setStorageSync('token', data.token.token)
+          wx.setStorageSync('vip_expire_time', data.expire_at)
           getApp().globalData.token = data.token.token,
-         setTimeout(() => {
-          this.getCartNum(this.data.scene)
-         }, 100);
-            this.deskInformation();
+            //登录后检查用户身份
+            this.getsession()
         }
         console.log(data);
       },
@@ -88,22 +129,22 @@ Page({
         code: code
       },
       success: ({ data }: any) => {
+        wx.setStorageSync('token', data.token.token)
+        wx.setStorageSync('vip_expire_time', data.expire_at)
         getApp().globalData.token = data.token.token
         this.setData({
-          showBag:true
+          showBag: true
         })
-        setTimeout(() => {
-          this.getCartNum(this.data.scene)
-         }, 100);
-        this.deskInformation();
+        //登录后检查用户身份
+        this.getsession()
       },
     });
   },
-//购物车交互
-changeCart(){
-  this.getCartNum(this.data.scene)
-},
-
+  //购物车交互
+  changeCart() {
+    console.log("执行");
+    this.getCartNum(this.data.scene)
+  },
   //获取菜品信息
   getMenu(scene: string) {
     request({
@@ -127,13 +168,61 @@ changeCart(){
       },
       success: ({ data }: any) => {
         console.log(data);
+        let dict = data.category_list;
+        let arr = this.data.navList as any;
+        arr = arr.map((item: any) => {
+          if (dict[item.category_id]) {
+            return { ...item, num: dict[item.category_id] }
+          } else {
+            const { num, ...rest } = item;
+            return rest;
+          }
+        });
+        console.log(this.data.swiggerList,
+          this.data.goodsList);
+        console.log(data.list);
+        // 列表数量
+        let arr1 = data.list;//左侧小标
+        let arr2 = this.data.goodsList;//商品数
+        let arr3 = this.data.swiggerList;//畅饮数
+        arr3.forEach((obj2: any) => {
+          obj2.item_list.forEach((item2: any) => {
+            let found = false;
+            arr1.forEach((obj1: any) => {
+              if (obj1.item_id === item2.item_id) {
+                found = true;
+                item2.cart_num = obj1.cart_num;
+              }
+            })
+            if (!found) item2.cart_num = 0;
+          });
+        });
+        arr2.forEach((obj2: any) => {
+          obj2.item_list.forEach((item2: any) => {
+            let found = false;
+            arr1.forEach((obj1: any) => {
+              if (obj1.item_id === item2.item_id) {
+                found = true;
+                item2.cart_num = obj1.cart_num;
+              }
+            })
+            if (!found) item2.cart_num = 0;
+          });
+        });
+        console.log(arr3);
+        console.log(arr2);
         this.setData({
-          cartList:data.list,
-          category_list:data.category_list,
+          cartList: data.list,
+          goodsList: arr2,
+          swiggerList: arr3,
+          navList: arr,
+          cartTotal: data.total_cart_num,
+          leftTotal: data.category_list,
         })
       },
     });
   },
+  //左侧类目
   activeNav(e: any) {
     var index = e.currentTarget.dataset.index
     console.log("item" + index);
@@ -143,30 +232,51 @@ changeCart(){
       selectId: "item" + index
     })
   },
-  //开台
+  //畅饮开台
   onclick() {
-    // 
-    if(this.data.is_vip){
+    if (this.data.is_vip) {
       this.setData({
         select: true,
         showDeskTypeMenu: false,
         showNumSheet: true,
       })
-    }else{
+    } else {
       this.setData({
         select: true,
-        showPriceSheet:true,
+        isTopVipMenu:false,
+        showPriceSheet: true,
         showDeskTypeMenu: false,
       })
     }
-    
+
   },
+  //单点开台
   onclick_select() {
     this.setData({
       select: false,
       showDeskTypeMenu: false
     })
     this.deskBegin(0);
+  },
+  //会话信息
+  getsession() {
+    request({
+      url: "/api/beer/minic/session",
+      success: ({ data, code }: any) => {
+        console.log(code);
+        if (code === 0) {
+          this.setData({
+            is_vip: data.is_vip,
+            showBag: true
+          })
+         
+          //检查桌台信息
+          this.deskInformation();
+        } else {
+          this.wxlogin()
+        }
+      },
+    });
   },
   //桌台信息
   deskInformation() {
@@ -181,11 +291,19 @@ changeCart(){
           this.setData({
             showDeskTypeMenu: true
           })
+        } else {
+          this.getCartNum(this.data.scene);
         }
-        this.setData({
-          is_chang: data.is_chang,
-          is_vip: data.is_vip
-        })
+         //未处理订单        
+        if(data.is_unpaid){
+          this.setData({
+            unpaidda_dialog:true,
+          })
+        }else{
+          this.setData({
+            unpaidda_dialog:false,
+          })
+        }
       },
     });
   },
@@ -204,16 +322,10 @@ changeCart(){
       },
       success: ({ data }: any) => {
         console.log(data);
-        // if (data.trade_id === 0) {
-        //   this.setData({
-        //     showDeskTypeMenu: true
-        //   })
-        // }
-        this.getCartNum(this.data.scene);
         this.setData({
-          is_chang: data.is_chang,
-          is_vip: data.is_vip
+          countOfMember:chang_count
         })
+        this.getCartNum(this.data.scene);
       },
     });
   },
@@ -237,11 +349,18 @@ changeCart(){
       showKeyBoard: true,
     })
   },
+  //选人数点餐
   bigen() {
     this.setData({
       showNumSheet: false,
     })
     this.deskBegin(getApp().globalData.counting)
+  },
+  onShow(){
+    if(this.data.isinit){
+      // this.getCartNum(this.data.scene);
+      this.deskInformation()
+    }
   },
   onReady() {
     let _this = this;
@@ -277,12 +396,9 @@ changeCart(){
     }
     let scrollTop = e.detail.scrollTop;
     let { topPos } = this.data;
-    console.log(topPos);
-
     let index = topPos.findIndex((value, i, array) => {
       return scrollTop < value
     });
-    console.log(index);
     this.setData({
       active: index === -1 ? topPos.length - 1 : index - 1
     });
@@ -292,22 +408,117 @@ changeCart(){
       scrolling: false
     });
   },
-  closeSheet(){
-   console.log("我在执行");
-   this.setData({
-    showPriceSheet:false,
-  })
-  },
-    //关闭会员弹窗
-    closePriceSheet(){
+  //会员购买弹窗关闭
+  closeSheet() {
+    if(this.data.isTopVipMenu){
       this.setData({
-        showPriceSheet:false,
-        showDeskTypeMenu:true
+        showPriceSheet: false,
       })
-    },
+    }else{
+      this.setData({
+        showPriceSheet: false,
+        showNumSheet: true,
+      })
+    }
+  },
+  //关闭会员弹窗
+  closePriceSheet() {
+    if(this.data.isTopVipMenu){
+      this.setData({
+        showPriceSheet: false,
+      })
+    }else{
+      this.setData({
+        showPriceSheet: false,
+        showDeskTypeMenu: true,
+      })
+    }
+  },
+  //关闭购物车
+  closeCartSheet() {
+    this.setData({
+      showCartSheet: false
+    })
+  },
+  //打开cart
+  openBag() {
+    this.setData({
+      showCartSheet: true
+    })
+  },
+  //开通会员
+  openmember(){
+   this.setData({
+    isTopVipMenu:true,
+     showPriceSheet:true
+   })
+  },
+  //清空购物车
+  clear(){
+    request({
+      url: "/api/beer/minic/order/cart/clear",
+      method: "POST",
+      data: {
+        scene: this.data.scene,
+      },
+      success: ({ data }: any) => {
+        console.log(data);
+        this.getCartNum(this.data.scene);
+      },
+    });
+  },
+  //创建订单
+  creatOrder(){
+      if(this.data.cartList.length===0){
+         wx.showToast({
+           title:"请先选择菜品",
+           icon:"none"
+         })
+      }else{
+        wx.navigateTo({
+          url:"/pages/confirmation/index"
+        })
+        this.setData({
+          isinit:true
+        })
+      }
+  },
+  gosearch(){
+    wx.navigateTo({
+      url:"/pages/search/index"
+    })
+    this.setData({
+      isinit:true
+    })
+  },
   //分享
   onShareAppMessage() {
 
   },
-
+  //查看订单
+  gorder(){
+    wx.redirectTo({
+      url:`/pages/order_pay/index?scene=${this.data.scene}`
+    })
+  },
+  //取消订单
+  cancel(){
+    // request({
+    //   url: "/api/beer/minic/order/cart/clear",
+    //   method: "POST",
+    //   data: {
+    //     scene: this.data.scene,
+    //   },
+    //   success: ({ data }: any) => {
+    //     console.log(data);
+    //     this.getCartNum(this.data.scene);
+    //   },
+    // });
+  },
+  //查看订单
+  goIndex(){
+    wx.navigateTo({
+      url:"/pages/index/index"
+    })
+  }
 })

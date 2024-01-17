@@ -9,7 +9,13 @@ Component({
     properties: {
       item: { type: Object, value: {} },
     },
-
+    observers: {
+      'item': function (val) {
+          this.setData({
+            num:val.cart_num?val.cart_num:0
+          })
+      },
+  },
     /**
      * 组件的初始数据
      */
@@ -22,16 +28,13 @@ Component({
      */
     methods: {
 add(){
-  this.setData({
-    num:this.data.num+1
-  })
   this.changeCart(1)
 },
 reduce(){
   if(this.data.num>0){
-    this.setData({
-      num:this.data.num-1
-    })
+    // this.setData({
+    //   num:this.data.num-1
+    // })
     this.changeCart(-1);
   }
 },

@@ -10,8 +10,43 @@
             "list": [
                 {
                     "name": "",
+                    "pathName": "pages/order_pay/index",
+                    "query": "scene=ItWHBlFVnlnmk4kd2jFjtg",
+                    "launchMode": "default",
+                    "scene": null
+                },
+                {
+                    "name": "",
                     "pathName": "pages/deskScan/index",
-                    "query": "scene=jf_2OPaMfEgP1Ti37tgj_Q",
+                    "query": "scene=ItWHBlFVnlnmk4kd2jFjtg",
+                    "launchMode": "default",
+                    "scene": 1011
+                },
+                {
+                    "name": "",
+                    "pathName": "pages/order/index",
+                    "query": "scene=ItWHBlFVnlnmk4kd2jFjtg",
+                    "launchMode": "default",
+                    "scene": null
+                },
+                {
+                    "name": "",
+                    "pathName": "pages/detail/index",
+                    "query": "",
+                    "launchMode": "default",
+                    "scene": null
+                },
+                {
+                    "name": "",
+                    "pathName": "pages/search/index",
+                    "query": "",
+                    "launchMode": "default",
+                    "scene": null
+                },
+                {
+                    "name": "",
+                    "pathName": "pages/confirmation/index",
+                    "query": "",
                     "launchMode": "default",
                     "scene": null
                 },

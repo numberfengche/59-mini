@@ -1,0 +1,8 @@
+{
+    "usingComponents": {"van-dialog": "@vant/weapp/dialog/index",
+      "van-button": "@vant/weapp/button/index",
+      "van-action-sheet": "@vant/weapp/action-sheet/index",
+      "member-popup":"/components/member-popup/index"
+    },
+    "navigationStyle": "custom"
+}

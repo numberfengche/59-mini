@@ -1,0 +1,28 @@
+<view class="card_container">
+  <view class="card">
+<image src="{{item.cover_url?item.cover_url:'https://59beer.oss-cn-chengdu.aliyuncs.com/mini/combo-icon.png'}}" mode="" class="left"/>
+<view class="right">
+<view>
+  <view class="title">
+ <view class="tag">畅饮</view>
+ {{item.title}}
+ </view>
+<view class="desc">{{item.intro}}</view>
+</view>
+<view class="price_row">
+    <view class="price">
+      <view class="unit">￥</view>
+      <view class="newprice">{{item.has_price_vip?item.price_vip_str:item.price_normal_str}}</view> 
+        <view wx:if="{{item.has_price_vip}}" class="oldprice">￥{{item.price_normal_str}}</view>
+    </view>
+    <view class="stepper_controller">
+      <image  bind:tap="{{item.can_delete===1?'reduce':'reduce1'}}" class="reduce_controller" src="/assets/images/reduce.svg" mode="" />
+      <view  class="num">{{item.cart_num}}</view>
+      <image bind:tap="add" class="add_controller" src="/assets/images/add.svg" mode="" />
+    </view>
+  </view>
+
+</view>
+</view>
+<view class="line"></view>
+</view>

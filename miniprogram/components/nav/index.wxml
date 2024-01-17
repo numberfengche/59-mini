@@ -1,18 +1,12 @@
-<view class="mark">
-    <view class="nav" style="height:{{navBarHeight}}px; padding-top: {{top}}px;">
-                <!-- <image src="/assets/images/home.png" class="home_icon" bind:tap="back" /> -->
-                <view class="home_icon"></view>
+<view class="nav" style="height:{{navBarHeight}}px; padding-top: {{top}}px;">
+<block>
+  <image  wx:if="{{!white}}" class="home_icon" bind:tap="back" src="/assets/images/back.svg" mode=""/>
+  <image wx:else class="home_icon" bind:tap="back" src="/assets/images/white_more.svg" mode=""/>
+</block>
+    
+      
                 <view class="nav_title">
                 {{name}}
-            </view>
+            </view> 
             <view class="null"></view>
             </view>
-            <view class="search_row">
-                <view class="search_row_left" bind:tap="gosearch">
-                    <van-icon  class="mark1" name="search" />
-                    请输入菜品名称
-                </view>
-                <image src="/assets/images/order.png" bind:tap="goorder" class="search_row_right" mode=""/>
-                <!-- <van-icon class="search_row_right" name="user-o" /> -->
-            </view>
-</view>

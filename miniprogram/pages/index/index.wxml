@@ -1,0 +1,89 @@
+<view class="index">
+  <view class="bgc">
+    <view class="nav" style="height:{{navBarHeight}}px; padding-top: {{top}}px;">
+      <image class="logo" src="https://59beer.oss-cn-chengdu.aliyuncs.com/mini/logo.png" mode="" />
+    </view>
+    <view class="user_info">
+      <view wx:if="{{islogin}}" class="phone">{{info.mobile_with_mask}}</view>
+      <image wx:if="{{islogin}}" bind:tap="logout" class="img_exit" src="/assets/images/exit.png" mode="" />
+    </view>
+    <view class="vip">
+      <view class="login" wx:if="{{!islogin}}">
+        <view class="title">登录即享畅饮</view>
+        <view class="login_button" bind:tap="wxlogin">立即登录</view>
+      </view>
+      <view class="login" wx:if="{{islogin&&!info.is_vip}}">
+        <view class="title">开通会员即享畅饮</view>
+        <view class="login_button" bind:tap="openMember">立即开通</view>
+      </view>
+      <view class="member" wx:if="{{islogin&&info.is_vip}}">
+        <view class="member_info">
+          <view class="member_title">{{info.vip_label}}</view>
+          <view class="member_time">{{info.vip_expire_time}}到期</view>
+        </view>
+        <view class="save">
+          <view class="number">{{money.vip_discount_total_str}}</view>
+          <view class="tip">累计已省(元)</view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <view class="no_result" wx:if="{{!islogin}}">
+    <image class="empty" src="https://59beer.oss-cn-chengdu.aliyuncs.com/minib/empty.png" mode="" />
+    <view class="tips">登录后查看订单</view>
+  </view>
+
+  <scroll-view scroll-y bindscrolltolower="getList" wx:if="{{islogin}}" style="height: calc(100vh  - 450rpx); margin-top: 15rpx;" class="scroll">
+    <view class="card" wx:for="{{list}}" wx:key="index" bind:tap="godetail" data-id="{{item.trade_id}}">
+      <view class="top_info">
+        <view class="left">
+          <view class="shop_name">{{item.shop_name?item.shop_name:'--'}}</view>
+          <view class="creatime">下单时间：{{item.create_time}}</view>
+        </view>
+        <view class="right">{{item.state_str}}
+          <image class="more" src="/assets/images/more1.png" mode="" />
+        </view>
+      </view>
+      <view class="bot_info">
+        <view class="bl">
+          <image src="{{item.item_cover_urls[0]?item.item_cover_urls[0]:'https://59beer.oss-cn-chengdu.aliyuncs.com/mini/combo-icon.png'}}" class="goods" mode="" />
+          <image wx:if="{{item.item_cover_urls.length>1}}" src="{{item.item_cover_urls[1]?item.item_cover_urls[0]:'https://59beer.oss-cn-chengdu.aliyuncs.com/mini/combo-icon.png'}}" class="goods" mode="" />
+          <image wx:if="{{item.item_cover_urls.length>2}}" src="{{item.item_cover_urls[2]?item.item_cover_urls[0]:'https://59beer.oss-cn-chengdu.aliyuncs.com/mini/combo-icon.png'}}" class="goods" mode="" />
+        </view>
+        <view class="price_row">
+          <view class="num">共{{item.item_count}}件</view>
+          <view class="paymoney">实付<text>￥{{item.price_total_str}}</text></view>
+        </view>
+      </view>
+    </view>
+
+
+  </scroll-view>
+
+
+</view>
+
+
+
+<!-- 登录弹窗 -->
+<van-dialog show="{{ showGetPhoneMenu  }}" use-slot showConfirmButton="{{false}}">
+  <view class="login_options">
+    <view class="login_title">获取手机号</view>
+    <view class="tips">手机号快捷登录</view>
+    <van-button type="primary" class="button" bind:tap="setMenu" open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber">
+      <view class="van_button">
+        <image class="wx" src="/assets/images/weixin.svg" mode="" />
+        一键获取
+      </view>
+    </van-button>
+  </view>
+</van-dialog>
+
+
+<!-- 开通会员 -->
+<van-action-sheet class="member_sheet_pup" bind:click-overlay='closePriceSheet' wx:if="{{ showPriceSheet }}" show="{{ showPriceSheet }}">
+  <view class="sheet_member">
+    <member-popup bind:myevent="closeSheet"></member-popup>
+  </view>
+</van-action-sheet>

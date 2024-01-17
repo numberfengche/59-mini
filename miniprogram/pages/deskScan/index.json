@@ -3,12 +3,14 @@
       "van-search": "@vant/weapp/search/index",
       "van-button": "@vant/weapp/button/index",
       "van-dialog": "@vant/weapp/dialog/index",
+      "van-icon": "@vant/weapp/icon/index",
       "radio": "/components/radio/radio",
       "member-card":"/components/card/member",
       "swigger":"/components/card/swigger",
       "van-action-sheet": "@vant/weapp/action-sheet/index",
       "numberkeyboard":"/components/numberkeyboard/index",
-      "member-popup":"/components/member-popup/index"
+      "member-popup":"/components/member-popup/index",
+      "cart":"/components/card/cart/index"
     },
     "navigationStyle": "custom"
 }

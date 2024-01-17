@@ -1,6 +1,12 @@
 {
     "pages": [
-      "pages/deskScan/index"
+        "pages/index/index",
+        "pages/deskScan/index",
+        "pages/confirmation/index",
+        "pages/order/index",
+        "pages/search/index",
+        "pages/detail/index",
+        "pages/order_pay/index"
     ],
     "window": {
         "backgroundTextStyle": "light",

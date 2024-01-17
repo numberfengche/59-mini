@@ -1,0 +1,215 @@
+.pageSearch{
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #fff;
+}
+/* pages/search/index.wxss */.container {
+  width: 100%;
+  height: 100vh;
+  display: block;
+  padding: 0;
+  font-size: 24rpx;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+}
+
+.container > .content {
+  width: 100%;
+  height: calc(100vh - 148rpx);
+  background-color: #F5F5F5;
+}
+.c_content1 {
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  padding: 16rpx 24rpx;
+  overflow-y: scroll;
+  background-color: #f5f6f8;
+  /*  */
+}
+.c_loading {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.no_result {
+  /* padding: 0 24rpx; */
+}
+.no_result .title {
+  height: 44rpx;
+  display: flex;
+  justify-content: space-between;
+  align-items: stretch;
+  margin: 34rpx 0 24rpx;
+  padding: 0 24rpx;
+  color: #333;
+  font-size: 32rpx;
+  font-weight: 700;
+}
+.no_result .title .left,
+.no_result .title .right {
+  display: flex;
+  align-items: center;
+}
+.no_result .title .right {
+  padding: 0 16rpx;
+}
+.no_result .title .icon {
+  width: 32rpx;
+  height: 32rpx;
+}
+.empty_card{
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 530rpx;
+  align-items: center;
+  border-radius: 16rpx;
+  background-color: #fff;
+  margin-bottom: 48rpx;
+}
+
+.empty{
+  width: 327rpx;
+height: 360rpx;
+margin-top: 80rpx;
+}
+.title_desc{
+  font-size: 32rpx;
+ font-style: normal;
+ font-weight: 500;
+ margin-top: 20rpx;
+ margin-bottom: 12rpx;
+}
+.sub_desc{
+  font-size: 24rpx;
+  font-style: normal;
+  font-weight: 400;
+  color: #666666;
+}
+.no_result .result {
+  width: 100%;
+  padding: 16rpx 24rpx;
+ box-sizing: border-box;
+}
+.no_result .history .c_content {
+  max-height: 144rpx;
+  display: flex;
+  flex-wrap: wrap;
+  padding: 0 24rpx;
+  overflow: hidden;
+}
+.no_result .history .b_history {
+  max-width: 260rpx;
+  height: 56rpx;
+  margin: 0 16rpx 16rpx 0;
+  padding: 0 20rpx;
+  border-radius: 4rpx;
+  background: #f5f5f5;
+  font-size: 24rpx;
+  color: #666;
+  line-height: 56rpx;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.search_bar {
+  display: flex;
+  background-color: #fff;
+  padding: 0 24rpx;
+}
+.search_bar .search {
+  width: 622rpx;
+  height: 76rpx;
+  padding-left: 0;
+  /* box-sizing: border-box;
+  padding-left: 76rpx;
+  border-radius: 54rpx;
+  background: #f5f5f5;
+  font-size: 28rpx; */
+}
+.search_bar .button_search {
+  height: 76rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0;
+  background: transparent;
+  color: #333;
+  font-size: 28rpx;
+}
+.search_bar .button_search::after {
+  content: none;
+}
+
+.sort {
+  height: 72rpx;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 8rpx;
+}
+.sort .b_sort {
+  flex: 1 1 20%;
+  height: 72rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 30rpx;
+  font-weight: 500;
+}
+.sort .b_sort.active {
+  color: #f23030;
+}
+.sort .b_sort .corner {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
+}
+.corner_up,
+.corner_down {
+  margin: 2rpx 6rpx;
+  border: 10rpx solid;
+}
+.corner_up {
+  border-color: transparent transparent #999 transparent;
+}
+.corner_down {
+  border-color: #999 transparent transparent transparent;
+}
+.corner_up.active {
+  border-color: transparent transparent #f23030 transparent;
+}
+.corner_down.active {
+  border-color: #f23030 transparent transparent transparent;
+}
+.sort .b_sort text {
+  margin-left: 4rpx;
+}
+.cardd{
+  height: 190rpx;
+  background-color: red;
+  width: 100%;
+}
+.backhome{
+  width: 212rpx;
+height: 68rpx;
+border-radius: 54rpx;
+display: flex;
+align-items: center;
+justify-content: center;
+font-size: 28rpx;
+font-family: PingFang SC, PingFang SC;
+background-color: #1EAA39;
+margin-top: 32rpx;
+font-weight: 500;
+color: #FFFFFF;
+}

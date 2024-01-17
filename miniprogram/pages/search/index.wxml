@@ -1,0 +1,66 @@
+<view class="pageSearch">
+  <view style="background-color: #fff;">
+    <nav name="搜索"></nav>
+  </view>
+
+  <view class="search_bar">
+  <van-search
+      custom-class="search"
+      shape="round"
+      clear-trigger="always"
+      placeholder="搜索商品名称"
+      value="{{keyword}}"
+      bind:search="onSearch"
+      bind:cancel="onCancel"
+      bind:clear="onClear"
+      bind:change="onSearchInput"
+    />
+    <button class="button_search" type="primary" bindtap="onSearch">搜索</button>
+  </view>
+<block wx:if="{{goods_list.length > 0 || loading === true}}">
+  <view class="c_content1" style="height: calc(100vh -{{navBarHeight}}px - 80rpx );">
+          <block wx:for="{{goods_list}}" wx:key="goods_id">
+            <cart item="{{item}}" />
+          </block>
+        </view>
+</block>
+
+  <block wx:else>
+    <view class="no_result" style="padding-bottom: {{main_height}}px;">
+      <block wx:if="{{searchHistory.length > 0}}">
+        <view class="history">
+          <block wx:if="{{hasSearched === false}}">
+            <view class="title">
+              <view class="left">历史搜索</view>
+              <view class="right" bindtap="deleteHistory">
+                <image class="icon" src="/assets/images/rubbish.svg" />
+              </view>
+            </view>
+            <view class="c_content">
+            <block wx:for="{{searchHistory}}" wx:key="item">
+              <view class="b_history" data-keyword="{{item}}" 
+              bindtap="onClickHistory">{{item}}</view>
+            </block>
+          </view>
+          </block>
+          <block wx:else>
+            <view class="result">
+             <view class="empty_card">
+              <image class="empty" src="https://59beer.oss-cn-chengdu.aliyuncs.com/minib/empty.png" mode=""/>
+              <view class="title_desc">抱歉，没有找到该内容</view>
+              <view class="backhome">去首页</view>
+             </view>
+            </view>
+          </block>
+         
+        </view>
+      </block>
+    </view>
+  </block>
+
+
+
+
+
+
+</view>

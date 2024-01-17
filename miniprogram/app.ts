@@ -3,6 +3,7 @@ import { login } from "./utils/util";
 interface globalData {
     domain: string
     token: string
+    vip_expire_time: string//vip过期时间
     menuBotton: number, // 胶囊距底部间距（保持底部间距一致）
     menuRight: number, // 胶囊距右方间距（方保持左、右间距一致）
     menuHeight: number, // 胶囊高度（自定义内容可与胶囊高度保证一致）
@@ -29,7 +30,8 @@ interface globalData {
   App<IAppOption>({
     globalData: {
         domain:"",  // wx.getStorageSync('token'),
-        token:"",
+        token:wx.getStorageSync('token'),
+        vip_expire_time:wx.getStorageSync('vip_expire_time'),
         counting:1,//点餐人数
         navBarHeight: 0, // 导航栏高度,
         menuBotton: 0, // 胶囊距底部间距（保持底部间距一致）
@@ -72,13 +74,13 @@ interface globalData {
             this.globalData.domain = "https://api-pre.59beer.com";
             break;
           case "trial":
-            this.globalData.domain = "https://api.59beer.com";
+            this.globalData.domain = "https://api-pre.59beer.com";
             break;
           case "release":
-            this.globalData.domain = "https://api.59beer.com";
+            this.globalData.domain = "https://api-pre.59beer.com";
             break;
           default:
-            this.globalData.domain = "https://api.59beer.com";
+            this.globalData.domain = "https://api-pre.59beer.com";
             break;
         }
     let that=this;

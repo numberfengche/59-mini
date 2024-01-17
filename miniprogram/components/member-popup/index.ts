@@ -88,7 +88,7 @@ Component({
                     fail: () => {
                     },
                 });
-            }, 2000)
+            }, 500)
             },
             fail: function (res) {
               console.log(res);

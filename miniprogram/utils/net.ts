@@ -12,7 +12,8 @@ interface IParams {
 
 export const request = async ({ url, method, data, success, fail, showMessage = true }: IParams) => {
     const domain = getApp().globalData.domain;
-    const token = getApp().globalData.token;
+    // const token = getApp().globalData.token;
+    const token= wx.getStorageSync('token')
   //  const { token: Authorization } = await login();
     wx.request({
         url:`${domain}${url}`,
@@ -25,6 +26,7 @@ export const request = async ({ url, method, data, success, fail, showMessage = 
                 data: { code, data, msg },
             } = res;
             if (statusCode === 401 || code === 401 || code === 2010) {
+              wx.showToast({ title: "请先登录", icon: "none" });
                 if (fail) {
                     fail(msg);
                 }

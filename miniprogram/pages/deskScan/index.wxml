@@ -1,8 +1,10 @@
 <view class="custorm_container">
   <view class="nav">
     <view class="search_row" style="height:{{navBarHeight - top}}px; top: {{top}}px;">
-      <image class="home" src="/assets/images/home.svg" mode="" />
-      <van-search class="van-search" shape="round" background="transparent" placeholder="请输入商品名称" />
+      <image class="home" bind:tap="goIndex" src="/assets/images/home.svg" mode="" />
+      <view class="van-search" bind:tap="gosearch">
+        <van-icon name="search" class="icon" />请输入商品名称
+      </view>
     </view>
     <view class="shop_info" style=" top: {{top + 14 + navBarHeight - top}}px;">
       <view class="shop_name">
@@ -13,88 +15,97 @@
     </view>
   </view>
   <view class="list" style="height: calc(100vh - {{top}}px - 182rpx - 192rpx);">
-    <image src="/assets/images/guidance.svg" mode="" class="guidance" />
+    <image wx:if="{{!is_vip}}" bind:tap="openmember" src="/assets/images/guidance.svg" mode="" class="guidance" />
     <view class="container_list" style="height: calc(100vh - {{top}}px - 182rpx - 192rpx - 70rpx);">
-      <scroll-view scroll-y scroll-with-animation style="width:180rpx">
+      <scroll-view scroll-y scroll-with-animation style="width:180rpx;background-color: #F5F6FA;">
         <view class='nav1'>
           <view wx:for="{{navList}}" wx:forindex="index" wx:key='category_id' class="{{index === active ?'select_nav':(index === active + 1 ? 'title-next' : 'title')}}" data-index='{{index}}' bindtap='activeNav'>
+            <view class="select_num" wx:if="{{item.num}}">{{item.num}}</view>
             <view class="{{index === active ?'line':'line_placeholder'}}"></view>
             {{item.category_name}}
             <view class="line_placeholder"></view>
           </view>
         </view>
       </scroll-view>
-      <scroll-view   scroll-y class="card_con" bindscrolltolower="handleScrollLower" bindscroll="handleScroll" scroll-with-animation scroll-into-view="{{selectId}}">
-        <swigger class='subtitle' id='{{"item"+(0)}}' wx:for="{{swiggerList}}" wx:key="index" item="{{item}}"></swigger>
-          <view id='{{"item"+(index+1)}}' class='subtitle' wx:for="{{goodsList}}"wx:key='index'>
-            <view class="headline">{{item.category_name}}</view>
-            <member-card bind:myevent="changeCart" wx:for="{{item.item_list}}" wx:for-item="food" wx:key="index" item="{{food}}"></member-card>
-         </view>
+      <scroll-view scroll-y class="card_con" bindscrolltolower="handleScrollLower" bindscroll="handleScroll" scroll-with-animation scroll-into-view="{{selectId}}">
+        <swigger class='subtitle' bind:myevent="changeCart" id='{{"item"+(0)}}' wx:for="{{swiggerList}}" wx:key="index" num="{{countOfMember}}" item="{{item}}"></swigger>
+        <view id='{{"item"+(index+1)}}' class='subtitle' wx:for="{{goodsList}}" wx:key='index'>
+          <view class="headline">{{item.category_name}}</view>
+          <member-card bind:myevent="changeCart" wx:for="{{item.item_list}}" wx:for-item="food" wx:key="index" item="{{food}}"></member-card>
+        </view>
       </scroll-view>
 
     </view>
   </view>
   <view class="bag">
-  <block>
-    <view class="bagleft" wx:if="{{showBag}}">
-  <view class="img_container">
-  <image src="https://59beer.oss-cn-chengdu.aliyuncs.com/mini/bag.png" mode="" class="bag_img"/>
-  <view class="badge">{{cartList.length}}</view>
-</view>
-   <view class="pointed">已点{{cartList.length}}份菜品</view>
-</view>
-<view wx:else class="nologin">未登录</view>
-  </block>
-   <view class="check_button"><van-button>
-        选好了
-        </van-button></view>
+    <block wx:if="{{showBag}}">
+      <view class="bagleft" bind:tap="openBag">
+        <view class="img_container">
+          <image src="https://59beer.oss-cn-chengdu.aliyuncs.com/mini/bag.png" mode="" class="bag_img" />
+          <view class="badge">{{cartTotal}}</view>
+        </view>
+        <view class="pointed">已点{{cartTotal}}份菜品</view>
+      </view>
+      <!-- <view wx:else class="nologin">未登录</view> -->
+      <view class="check_button">
+        <van-button bind:tap="creatOrder">
+          选好了
+        </van-button>
+      </view>
+    </block>
+    <block wx:else>
+      <view class="login_button_main">
+        <van-button bind:tap="manuallogin">
+          点击登录
+        </van-button>
+      </view>
+    </block>
   </view>
 </view>
-  <!-- 登录弹窗 -->
-  <van-dialog show="{{ showGetPhoneMenu  }}" use-slot showConfirmButton="{{false}}">
-    <view class="login_options">
-      <view class="login_title">获取手机号</view>
-      <view class="tips">手机号快捷登录</view>
-      <van-button type="primary" class="button" bind:tap="setMenu" open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber">
-        <view class="van_button">
-          <image class="wx" src="/assets/images/weixin.svg" mode="" />
-          微信一键获取
-        </view>
-      </van-button>
-    </view>
-  </van-dialog>
-
-  <!-- 怎么喝 -->
-  <van-dialog show="{{ showDeskTypeMenu  }}" custom-style="top:410px!important" use-slot showConfirmButton="{{false}}">
-    <view class="select_options">
-      <image class="select_bgc" src="https://59beer.oss-cn-chengdu.aliyuncs.com/mini/bgc.png" mode="widthFix" />
-      <view bind:tap="onclick" class="{{select?'select_item_select':'select_item'}}">
-        <view class="item_left">
-          <view class="member_row">
-            <image src="/assets/images/member.png" mode="" class="member" />
-            畅饮
-          </view>
-          <view class="sub">可享受会员价格和畅饮套餐</view>
-        </view>
-        <view class="item_right">
-          <image src="/assets/images/more.svg" mode="" class="more" />
-        </view>
+<!-- 登录弹窗 -->
+<van-dialog show="{{ showGetPhoneMenu  }}" use-slot showConfirmButton="{{false}}">
+  <view class="login_options">
+    <view class="login_title">获取手机号</view>
+    <view class="tips">手机号快捷登录</view>
+    <van-button type="primary" class="button" bind:tap="setMenu" open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber">
+      <view class="van_button">
+        <image class="wx" src="/assets/images/weixin.svg" mode="" />
+        一键获取
       </view>
-      <view bind:tap="onclick_select" class="{{select?'select_item':'select_item_select'}}">
-        <view class="item_left">
-          <view class="member_row">
-            单点
-          </view>
-          <view class="sub">单点不划算，冲个会员吧~</view>
-        </view>
-        <view class="item_right">
-          <image src="/assets/images/more.svg" mode="" class="more" />
-        </view>
+    </van-button>
+  </view>
+</van-dialog>
 
+<!-- 怎么喝 -->
+<van-dialog show="{{ showDeskTypeMenu  }}" custom-style="top:410px!important" use-slot showConfirmButton="{{false}}">
+  <view class="select_options">
+    <image class="select_bgc" src="https://59beer.oss-cn-chengdu.aliyuncs.com/mini/bgc.png" mode="widthFix" />
+    <view bind:tap="onclick" class="{{select?'select_item_select':'select_item'}}">
+      <view class="item_left">
+        <view class="member_row">
+          <image src="/assets/images/member.png" mode="" class="member" />
+          畅饮
+        </view>
+        <view class="sub">可享受会员价格和畅饮套餐</view>
+      </view>
+      <view class="item_right">
+        <image src="/assets/images/more.svg" mode="" class="more" />
       </view>
     </view>
-  </van-dialog>
-<van-action-sheet show="{{ showNumSheet }}">
+    <view bind:tap="onclick_select" class="{{select?'select_item':'select_item_select'}}">
+      <view class="item_left">
+        <view class="member_row">
+          单点
+        </view>
+        <view class="sub">单点不划算，冲个会员吧~</view>
+      </view>
+      <view class="item_right">
+        <image src="/assets/images/more.svg" mode="" class="more" />
+      </view>
+    </view>
+  </view>
+</van-dialog>
+<van-action-sheet class="pop" show="{{ showNumSheet }}">
   <view class="mark">
     <view class="top_desc_row">
       <view class="tips">您好，请选择就餐人数</view>
@@ -108,9 +119,35 @@
   <numberkeyboard showKeyBoard="{{showKeyBoard}}" bind:myevent="buffetdeskBegin"></numberkeyboard>
 </view>
 <!-- 开通会员 -->
-<van-action-sheet bind:click-overlay='closePriceSheet'  wx:if="{{ showPriceSheet }}" show="{{ showPriceSheet }}">
-<view class="sheet_member">
-<member-popup bind:myevent="closeSheet"></member-popup>
-</view>
+<van-action-sheet class="member_sheet_pup" bind:click-overlay='closePriceSheet' wx:if="{{ showPriceSheet }}" show="{{ showPriceSheet }}">
+  <view class="sheet_member">
+    <member-popup bind:myevent="closeSheet"></member-popup>
+  </view>
 </van-action-sheet>
 
+<!-- 购物车 -->
+<van-action-sheet wx:if="{{ showBag }}" bind:click-overlay='closeCartSheet' safe-area-inset-bottom="{{false}}" class="cart_sheet" show="{{ showCartSheet }}">
+  <view class="cart">
+    <view class="action_roe">
+      <view class="cart_title">已点菜品</view>
+      <view class="delete_action" bind:tap="clear">清空菜品</view>
+    </view>
+    <view class="foods_list">
+      <block wx:for="{{cartList}}" wx:key="index">
+        <cart item="{{item}}" bind:myevent="changeCart"></cart>
+      </block>
+    </view>
+  </view>
+</van-action-sheet>
+
+<!-- 待支付 -->
+<van-dialog show="{{ unpaidda_dialog  }}" use-slot showConfirmButton="{{false}}">
+  <view class="dialog">
+    <view class="dialog_title">您有未支付订单</view>
+    <view class="dialog_title_desc">是否继续支付?</view>
+    <view class="action_row">
+      <view class="go_pay" bind:tap="gorder">查看订单</view>
+      <view class="cancel" bind:tap="cancel">取消</view>
+    </view>
+  </view>
+</van-dialog>

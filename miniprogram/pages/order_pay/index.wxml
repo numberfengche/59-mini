@@ -1,0 +1,47 @@
+<view class="detail">
+<nav name="" white></nav>
+<view class="state">{{info.title}}</view>
+<view class="desc">{{info.sub_title}}</view>
+<scroll-view scroll-y class="scroll" style="height: calc(100vh - {{navBarHeight}}px - 138rpx );">
+  <view class="goods_card">
+   <view class="shop_name">{{info.shop_name}}</view>
+    <view wx:for="{{info.batch_list}}" wx:key="index">
+      <view class="order_info">
+        <view class="left">
+        <view class="times">第{{item.index}}次下单</view>
+        <view class="id">{{item.customer_mobile_tail}}</view>
+        </view>
+        <view class="right">{{item.state_str}}</view>
+        </view>
+
+        <view class="foods" wx:for="{{item.item_list}}" wx:key="index" wx:for-item="foods">
+            <view class="foods_img">
+              <image class="master_img" src="{{foods.cover_url?foods.cover_url:'https://59beer.oss-cn-chengdu.aliyuncs.com/mini/combo-icon.png'}}" mode=""/>
+              <view class="foods_info">
+                <view class="title">{{foods.title}}</view>
+                <view class="num">x{{foods.num}} </view>
+              </view>
+            </view>
+            <view class="price_info">
+              <view class="price">
+                <text>￥</text>{{item.price_total_str}}
+              </view>
+            </view>
+          </view>
+      <view wx:if="{{item.remark!=''}}" class="remark">备注：{{item.remark}}</view>
+      <view class="line"></view>
+      <view class="price_line">
+        共{{item.item_count}}件商品,
+        <text class="price">会员卡减免¥{{item.vip_discount_total_str}}</text>
+        还需付款
+        <view class="pay_price"> <text>￥</text>{{item.price_total_str}}</view>
+      </view>
+      <view class="options" wx:if="{{item.state===0}}">
+       <view class="cancel" bind:tap="cancel">取消订单</view>
+       <view class="pay_now" bind:tap="pay_now" data-id="{{item.batch_id}}">立即支付</view>
+      </view>
+    </view>
+  </view>
+
+</scroll-view>
+</view>
