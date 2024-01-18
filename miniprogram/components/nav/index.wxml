@@ -1,12 +1,10 @@
 <view class="nav" style="height:{{navBarHeight}}px; padding-top: {{top}}px;">
-<block>
-  <image  wx:if="{{!white}}" class="home_icon" bind:tap="back" src="/assets/images/back.svg" mode=""/>
-  <image wx:else class="home_icon" bind:tap="back" src="/assets/images/white_more.svg" mode=""/>
-</block>
-    
-      
-                <view class="nav_title">
-                {{name}}
-            </view> 
-            <view class="null"></view>
-            </view>
+  <block>
+    <image wx:if="{{!white}}" class="home_icon" bind:tap="back" src="/assets/images/back.svg" mode="" />
+    <image wx:else class="home_icon" bind:tap="back" src="/assets/images/white_more.svg" mode="" />
+  </block>
+  <view class="nav_title">
+    {{name}}
+  </view>
+  <view class="null"></view>
+</view>

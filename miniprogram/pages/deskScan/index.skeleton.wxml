@@ -1,0 +1,82 @@
+<!--
+此文件为开发者工具生成，生成时间: 2024/1/18下午4:14:45
+使用方法：
+在 /Users/afei/Documents/59-mini/miniprogram/pages/deskScan/index.wxml 引入模板
+
+```
+<import src="index.skeleton.wxml"/>
+<template is="skeleton" wx:if="{{loading}}" />
+```
+
+在 /Users/afei/Documents/59-mini/miniprogram/pages/deskScan/index.wxss 中引入样式
+```
+@import "./index.skeleton.wxss";
+```
+
+更多详细信息可以参考文档：https://developers.weixin.qq.com/miniprogram/dev/devtools/skeleton.html
+-->
+<template name="skeleton">
+  <block>
+  <view  style="background-color: #fff; overflow: hidden; box-sizing: border-box;height: 100vh;">
+  <van-skeleton row="1" row-class="row_class" style="height: 1200rpx;" row-width="100%" animate/>
+  <view class="search_skeleton">
+    <van-skeleton row="1" row-class="row_class" style="height: 1200rpx;" row-width="100%" animate/> 
+  </view>
+  <view class="con">
+  <view class="left">
+    <van-skeleton row="1" row-class="row_class" style="height: 1200rpx;" row-width="100%" animate/> 
+    <van-skeleton row="1" row-class="row_class" style="height: 1200rpx;" row-width="100%" animate/> 
+    <van-skeleton row="1" row-class="row_class" style="height: 1200rpx;" row-width="100%" animate/> 
+    <van-skeleton row="1" row-class="row_class" style="height: 1200rpx;" row-width="100%" animate/> 
+    <van-skeleton row="1" row-class="row_class" style="height: 1200rpx;" row-width="100%" animate/> 
+    <van-skeleton row="1" row-class="row_class" style="height: 1200rpx;" row-width="100%" animate/> 
+    <van-skeleton row="1" row-class="row_class" style="height: 1200rpx;" row-width="100%" animate/> 
+  </view>
+  <view class="right">
+    <van-skeleton row="1" row-class="row_class" style="height: 1200rpx;" row-width="100%" animate/> 
+    <van-skeleton row="1" row-class="row_class" style="height: 1200rpx;" row-width="100%" animate/> 
+    <van-skeleton row="1" row-class="row_class" style="height: 1200rpx;" row-width="100%" animate/> 
+    <van-skeleton row="1" row-class="row_class" style="height: 1200rpx;" row-width="100%" animate/> 
+    <van-skeleton row="1" row-class="row_class" style="height: 1200rpx;" row-width="100%" animate/> 
+  </view>
+  </view>
+  <view class="bot">
+    <view class="b_l">
+      <van-skeleton avatar avatar-size="80px" avatar-shape="square" animate/>
+    </view>
+    <view class="br_B">
+      <van-skeleton row="1" row-class="row_class" style="height: 1200rpx;" row-width="100%" animate/> 
+    </view>
+  </view>
+  <!-- <view class="search_skeleton">
+    <van-skeleton row="1" row-class="row_class" style="height: 1200rpx;" row-width="100%" animate/> 
+  </view>
+  <view class="activeity_row" style="display: flex; justify-content: space-around; margin-top:20rpx;">
+    <van-skeleton avatar avatar-size="50px" avatar-shape="square" animate/>
+    <van-skeleton avatar avatar-size="50px" avatar-shape="square" animate/>
+    <van-skeleton avatar avatar-size="50px" avatar-shape="square" animate/>
+    <van-skeleton avatar avatar-size="50px" avatar-shape="square" animate/>
+    <van-skeleton avatar avatar-size="50px" avatar-shape="square" animate/>
+  </view>
+
+<view class="hd" style="display: flex; justify-content: space-around; margin-top:40rpx;">
+  <van-skeleton avatar avatar-size="170px" avatar-shape="square" animate/>
+    <van-skeleton avatar avatar-size="170px" avatar-shape="square" animate/>
+</view>
+
+<view class="br">
+  <van-skeleton row="1" row-class="row_class" style="height: 1200rpx;" row-width="100%" animate/>
+</view>
+<view  style="display: flex; justify-content: space-around; margin-top:40rpx; flex-wrap: wrap;">
+ <view> <van-skeleton class="cd" avatar avatar-size="170px" avatar-shape="square" animate/>
+    <van-skeleton class="cd" avatar avatar-size="170px" avatar-shape="square" animate/></view>
+    <view>
+      <van-skeleton avatar avatar-size="170px" avatar-shape="square" animate/>
+    <van-skeleton avatar avatar-size="170px" avatar-shape="square" animate/>
+    </view>
+
+</view> -->
+</view>
+</block>
+
+</template>

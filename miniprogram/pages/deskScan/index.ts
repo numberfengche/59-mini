@@ -30,16 +30,18 @@ Page({
     isTopVipMenu:false,
     isinit:false,
     is_unpaid:false,//待处理订单
-    unpaidda_dialog:false
+    unpaidda_dialog:false,
+    is_loding:true,
   },
   onLoad(options: any) {
     console.log(options);
     const { scene } = options;
     getApp().globalData.scene = scene,
-      this.setData({ scene: scene, showBag: false })
+    this.setData({ scene: scene, showBag: false })
     this.getMenu(scene);
     const token = getApp().globalData.token;
     const vip_expire_time = getApp().globalData.vip_expire_time;
+    console.log(token);
     // 检查VIP是否过期
     if (token) {
       let currentDate = new Date();
@@ -53,9 +55,13 @@ Page({
         this.getsession()
       }
     } 
-    // else {
-    //   this.wxlogin()
-    // }
+    else {
+     setTimeout(() => {
+      this.setData({
+        is_loding:false,
+       })
+     }, 500);
+    }
   },
   //静默
   wxlogin() {
@@ -267,7 +273,8 @@ Page({
         if (code === 0) {
           this.setData({
             is_vip: data.is_vip,
-            showBag: true
+            showBag: true,
+            is_loding:false
           })
          
           //检查桌台信息
@@ -305,6 +312,9 @@ Page({
           })
         }
       },
+      fail:()=>{
+        this.setData({showBag:false})
+      }
     });
   },
   //自填人数开台
@@ -364,30 +374,60 @@ Page({
   },
   onReady() {
     let _this = this;
-    wx.nextTick(() => {
+    setTimeout(() => {
       _this.getEachCategoryPosition();
-    });
+    }, 500); // 这个值可能需要调整，以确保所有 .subtitle 元素都完全渲染完
   },
   getEachCategoryPosition: function () {
-    let _this = this;
     const query = wx.createSelectorQuery();
-    query.selectAll('.subtitle').boundingClientRect(function (rects: any) {
-      let topPos = rects.map((item: any, index: any) => {
-        console.log(item);
-        if (index === 0) {
-          return 0;
+  query.selectAll('.subtitle').boundingClientRect();
+  this.getRectsInfo(query).then((rects: any) => {
+    let topPos = rects.map((item: any, index: any) => {
+      if (index === 0) {
+        return 0;
+      } else {
+        let top = 0;
+        for (let i = 0; i < index; i++) {
+          top += rects[i].height;
+        }
+        return top;
+      }
+    });
+    console.log(topPos);
+    this.setData({
+      topPos: topPos
+    });
+  });
+    // query.selectAll('.subtitle').boundingClientRect(function (rects: any) {
+    //   let topPos = rects.map((item: any, index: any) => {
+    //     console.log(item);
+    //     if (index === 0) {
+    //       return 0;
+    //     } else {
+    //       let top = 0;
+    //       for (let i = 0; i < index; i++) {
+    //         top += rects[i].height;
+    //       }
+    //       return top;
+    //     }
+    //   });
+    //   console.log(topPos);
+      
+    //   _this.setData({
+    //     topPos: topPos
+    //   });
+    // }).exec();
+  },
+  getRectsInfo: function (query:any) {
+    return new Promise((resolve, reject) => {
+      query.exec((result:any) => {
+        if (result) {
+          resolve(result[0]);
         } else {
-          let top = 0;
-          for (let i = 0; i < index; i++) {
-            top += rects[i].height;
-          }
-          return top;
+          reject('获取节点信息失败');
         }
       });
-      _this.setData({
-        topPos: topPos
-      });
-    }).exec();
+    });
   },
   //滑动
   handleScroll: function (e: any) {
@@ -398,10 +438,13 @@ Page({
     let { topPos } = this.data;
     let index = topPos.findIndex((value, i, array) => {
       return scrollTop < value
-    });
-    this.setData({
+  });
+this.setData({
       active: index === -1 ? topPos.length - 1 : index - 1
-    });
+  });
+  console.log(index);
+  console.log(topPos);
+  
   },
   handleScrollLower: function (e: any) {
     this.setData({
@@ -448,10 +491,18 @@ Page({
   },
   //开通会员
   openmember(){
-   this.setData({
-    isTopVipMenu:true,
-     showPriceSheet:true
-   })
+    if(!this.data.showBag){
+      wx.showToast({
+        title:"请先登录",
+        icon:"none"
+      })
+    }else{
+      this.setData({
+        isTopVipMenu:true,
+        showPriceSheet:true
+      })
+    }
+   
   },
   //清空购物车
   clear(){
@@ -519,6 +570,9 @@ Page({
   goIndex(){
     wx.navigateTo({
       url:"/pages/index/index"
+    })
+    this.setData({
+      isinit:true
     })
   }
 })

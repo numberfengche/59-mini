@@ -3,6 +3,7 @@
       "van-search": "@vant/weapp/search/index",
       "van-button": "@vant/weapp/button/index",
       "van-dialog": "@vant/weapp/dialog/index",
+      "van-skeleton": "@vant/weapp/skeleton/index",
       "van-icon": "@vant/weapp/icon/index",
       "radio": "/components/radio/radio",
       "member-card":"/components/card/member",

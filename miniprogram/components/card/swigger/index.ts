@@ -53,7 +53,7 @@ Component({
             item_id: this.properties.item.item_list[0].item_id,
             action:num
           },
-          success: ({ data,code }: any) => {
+          success: ({ data,code,msg }: any) => {
             console.log(code);
             if(code===0){
               if(num>0){
@@ -66,14 +66,19 @@ Component({
                 })
               }
               this.triggerEvent('myevent');
+            }else{
+              wx.showToast({
+                title:msg,
+                icon:"none"
+              })
             }
           },
           fail:()=>{
-            // wx.showToast({
-            //   title:"您当前的饮酒模式为单点，若想改为畅饮，请联系服务人员",
-            //   icon:"none",
-            //   duration:2000
-            // })
+            wx.showToast({
+              title:"您当前的饮酒模式为单点，若想改为畅饮，请联系服务人员",
+              icon:"none",
+              duration:2000
+            })
           }
         });
       }

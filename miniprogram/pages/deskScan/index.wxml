@@ -1,22 +1,24 @@
-<view class="custorm_container">
-  <view class="nav">
-    <view class="search_row" style="height:{{navBarHeight - top}}px; top: {{top}}px;">
+<import src="index.skeleton.wxml"/>
+<template is="skeleton" wx:if="{{is_loding}}" />
+<view class="custorm_container" wx:if="{{!is_loding}}">
+  <view class="nav" style="padding-top: {{top}}px;">
+    <view class="search_row" style="height:{{navBarHeight - top}}px; ">
       <image class="home" bind:tap="goIndex" src="/assets/images/home.svg" mode="" />
       <view class="van-search" bind:tap="gosearch">
         <van-icon name="search" class="icon" />请输入商品名称
       </view>
     </view>
-    <view class="shop_info" style=" top: {{top + 14 + navBarHeight - top}}px;">
+    <view class="shop_info">
       <view class="shop_name">
         <image class="map" src="/assets/images/map.svg" mode="" />
         <view class="name">成都三色路店 </view>
       </view>
-      <image class="order" src="/assets/images/order.svg" mode="" />
+      <image class="order" bind:tap="goIndex" src="/assets/images/order.svg" mode="" />
     </view>
   </view>
-  <view class="list" style="height: calc(100vh - {{top}}px - 182rpx - 192rpx);">
-    <image wx:if="{{!is_vip}}" bind:tap="openmember" src="/assets/images/guidance.svg" mode="" class="guidance" />
-    <view class="container_list" style="height: calc(100vh - {{top}}px - 182rpx - 192rpx - 70rpx);">
+  <view class="list" style="height: calc(100vh - {{navBarHeight - top}}px - 186rpx - 192rpx);">
+    <image wx:if="{{!is_vip}}" bind:tap="openmember" src="/assets/images/guidance.svg" mode="widthFix" class="guidance" />
+    <view class="container_list" style="height:calc(100vh - {{navBarHeight - top}}px - {{is_vip?378:448}}rpx);">
       <scroll-view scroll-y scroll-with-animation style="width:180rpx;background-color: #F5F6FA;">
         <view class='nav1'>
           <view wx:for="{{navList}}" wx:forindex="index" wx:key='category_id' class="{{index === active ?'select_nav':(index === active + 1 ? 'title-next' : 'title')}}" data-index='{{index}}' bindtap='activeNav'>
@@ -46,7 +48,6 @@
         </view>
         <view class="pointed">已点{{cartTotal}}份菜品</view>
       </view>
-      <!-- <view wx:else class="nologin">未登录</view> -->
       <view class="check_button">
         <van-button bind:tap="creatOrder">
           选好了
@@ -77,7 +78,7 @@
 </van-dialog>
 
 <!-- 怎么喝 -->
-<van-dialog show="{{ showDeskTypeMenu  }}" custom-style="top:410px!important" use-slot showConfirmButton="{{false}}">
+<van-dialog show="{{ showDeskTypeMenu  }}" transition="fade" custom-style="top:410px!important" use-slot showConfirmButton="{{false}}">
   <view class="select_options">
     <image class="select_bgc" src="https://59beer.oss-cn-chengdu.aliyuncs.com/mini/bgc.png" mode="widthFix" />
     <view bind:tap="onclick" class="{{select?'select_item_select':'select_item'}}">
@@ -126,7 +127,7 @@
 </van-action-sheet>
 
 <!-- 购物车 -->
-<van-action-sheet wx:if="{{ showBag }}" bind:click-overlay='closeCartSheet' safe-area-inset-bottom="{{false}}" class="cart_sheet" show="{{ showCartSheet }}">
+<van-action-sheet  wx:if="{{ showBag }}" bind:click-overlay='closeCartSheet' safe-area-inset-bottom="{{false}}" class="cart_sheet" show="{{ showCartSheet }}">
   <view class="cart">
     <view class="action_roe">
       <view class="cart_title">已点菜品</view>
@@ -151,3 +152,5 @@
     </view>
   </view>
 </van-dialog>
+
+
