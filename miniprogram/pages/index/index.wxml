@@ -16,9 +16,9 @@
         <view class="title">开通会员即享畅饮</view>
         <view class="login_button" bind:tap="openMember">立即开通</view>
       </view>
-      <view class="member" wx:if="{{islogin&&info.is_vip}}">
+      <view class="member" bind:tap="openMember" wx:if="{{islogin&&info.is_vip}}">
         <view class="member_info">
-          <view class="member_title">{{info.vip_label}}</view>
+          <view class="member_title">{{info.vip_label}} <image class="more" src="/assets/images/more.svg" mode=""/> </view>
           <view class="member_time">{{info.vip_expire_time}}到期</view>
         </view>
         <view class="save">
@@ -47,9 +47,9 @@
       </view>
       <view class="bot_info">
         <view class="bl">
-          <image src="{{item.item_cover_urls[0]?item.item_cover_urls[0]:'https://59beer.oss-cn-chengdu.aliyuncs.com/mini/combo-icon.png'}}" class="goods" mode="" />
-          <image wx:if="{{item.item_cover_urls.length>1}}" src="{{item.item_cover_urls[1]?item.item_cover_urls[0]:'https://59beer.oss-cn-chengdu.aliyuncs.com/mini/combo-icon.png'}}" class="goods" mode="" />
-          <image wx:if="{{item.item_cover_urls.length>2}}" src="{{item.item_cover_urls[2]?item.item_cover_urls[0]:'https://59beer.oss-cn-chengdu.aliyuncs.com/mini/combo-icon.png'}}" class="goods" mode="" />
+          <image src="{{item.item_cover_urls[0]?item.item_cover_urls[0]:'https://59beer.oss-cn-chengdu.aliyuncs.com/mini/item_cover_default.jpg'}}" class="goods" mode="" />
+          <image wx:if="{{item.item_cover_urls.length>1}}" src="{{item.item_cover_urls[1]}}" class="goods" mode="" />
+          <image wx:if="{{item.item_cover_urls.length>2}}" src="{{item.item_cover_urls[2]}}" class="goods" mode="" />
         </view>
         <view class="price_row">
           <view class="num">共{{item.item_count}}件</view>
@@ -73,8 +73,8 @@
     <view class="tips">手机号快捷登录</view>
     <van-button type="primary" class="button" bind:tap="setMenu" open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber">
       <view class="van_button">
-        <image class="wx" src="/assets/images/weixin.svg" mode="" />
-        一键获取
+        <!-- <image class="wx" src="/assets/images/weixin.svg" mode="" /> -->
+        登录
       </view>
     </van-button>
   </view>

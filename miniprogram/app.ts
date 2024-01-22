@@ -17,6 +17,7 @@ interface globalData {
     tabelnumber:string//桌号,
     shopName:string//店铺,
     counting:number
+    is_vip:Boolean,
   }
   
   interface IAppOption {
@@ -44,7 +45,8 @@ interface globalData {
         scene:"",
         tabelnumber:"",
         shopName:"",
-        num:0//点餐人数索引
+        num:0,//点餐人数索引
+        is_vip:false
     },
     env: wx.getAccountInfoSync().miniProgram.envVersion,
     // 监听全局变量globalData中参数的变化
@@ -77,7 +79,7 @@ interface globalData {
             this.globalData.domain = "https://api-pre.59beer.com";
             break;
           case "release":
-            this.globalData.domain = "https://api-pre.59beer.com";
+            this.globalData.domain = "https://api.59beer.com";
             break;
           default:
             this.globalData.domain = "https://api-pre.59beer.com";

@@ -3,6 +3,7 @@ Page({
   data: {
     navBarHeight: getApp().globalData.navBarHeight,//导航栏高度
     top: wx.getMenuButtonBoundingClientRect().top,
+    shop:"",
     select: true,
     active: 0,
     navList: [],
@@ -161,6 +162,7 @@ Page({
           navList: data.category_list,
           swiggerList: data.category_list.slice(0, 1),
           goodsList: data.category_list.slice(1),
+          shop:data.shop_name
         })
       },
     });
@@ -276,7 +278,6 @@ Page({
             showBag: true,
             is_loding:false
           })
-         
           //检查桌台信息
           this.deskInformation();
         } else {
@@ -457,10 +458,12 @@ this.setData({
       this.setData({
         showPriceSheet: false,
       })
-    }else{
+      this.getsession()
+    }
+    else{
+      this.getsession()
       this.setData({
         showPriceSheet: false,
-        showNumSheet: true,
       })
     }
   },

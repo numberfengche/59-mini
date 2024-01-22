@@ -8,7 +8,12 @@ Component({
      */
     properties: {
       item: { type: Object, value: {} },
+      is_vip:{
+        type:Boolean,
+        value:false
+      },
     },
+    
     observers: {
       'item': function (val) {
           this.setData({

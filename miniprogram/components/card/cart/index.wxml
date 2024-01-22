@@ -12,8 +12,8 @@
 <view class="price_row">
     <view class="price">
       <view class="unit">￥</view>
-      <view class="newprice">{{item.has_price_vip?item.price_vip_str:item.price_normal_str}}</view> 
-        <view wx:if="{{item.has_price_vip}}" class="oldprice">￥{{item.price_normal_str}}</view>
+      <view class="newprice">{{item.has_price_vip&&is_vip?item.price_vip_str:item.price_normal_str}}</view> 
+        <view wx:if="{{item.has_price_vip&&is_vip}}" class="oldprice">￥{{item.price_normal_str}}</view>
     </view>
     <view class="stepper_controller">
       <image  bind:tap="{{item.can_delete===1?'reduce':'reduce1'}}" class="reduce_controller" src="/assets/images/reduce.svg" mode="" />

@@ -1,7 +1,7 @@
 <import src="index.skeleton.wxml"/>
 <template is="skeleton" wx:if="{{is_loding}}" />
 <view class="custorm_container" wx:if="{{!is_loding}}">
-  <view class="nav" style="padding-top: {{top}}px;">
+  <view class="nav" style="padding-top: {{top}}px; height: {{navBarHeight + top}}px + 182rpx;">
     <view class="search_row" style="height:{{navBarHeight - top}}px; ">
       <image class="home" bind:tap="goIndex" src="/assets/images/home.svg" mode="" />
       <view class="van-search" bind:tap="gosearch">
@@ -11,7 +11,7 @@
     <view class="shop_info">
       <view class="shop_name">
         <image class="map" src="/assets/images/map.svg" mode="" />
-        <view class="name">成都三色路店 </view>
+        <view class="name">{{shop}} </view>
       </view>
       <image class="order" bind:tap="goIndex" src="/assets/images/order.svg" mode="" />
     </view>
@@ -30,10 +30,10 @@
         </view>
       </scroll-view>
       <scroll-view scroll-y class="card_con" bindscrolltolower="handleScrollLower" bindscroll="handleScroll" scroll-with-animation scroll-into-view="{{selectId}}">
-        <swigger class='subtitle' bind:myevent="changeCart" id='{{"item"+(0)}}' wx:for="{{swiggerList}}" wx:key="index" num="{{countOfMember}}" item="{{item}}"></swigger>
+        <swigger class='subtitle' showBag="{{showBag}}"  bind:myevent="changeCart" id='{{"item"+(0)}}' wx:for="{{swiggerList}}" wx:key="index" num="{{countOfMember}}" item="{{item}}"></swigger>
         <view id='{{"item"+(index+1)}}' class='subtitle' wx:for="{{goodsList}}" wx:key='index'>
           <view class="headline">{{item.category_name}}</view>
-          <member-card bind:myevent="changeCart" wx:for="{{item.item_list}}" wx:for-item="food" wx:key="index" item="{{food}}"></member-card>
+          <member-card bind:myevent="changeCart" is_vip="{{is_vip}}" wx:for="{{item.item_list}}" wx:for-item="food" wx:key="index" item="{{food}}"></member-card>
         </view>
       </scroll-view>
 
@@ -63,6 +63,8 @@
     </block>
   </view>
 </view>
+
+
 <!-- 登录弹窗 -->
 <van-dialog show="{{ showGetPhoneMenu  }}" use-slot showConfirmButton="{{false}}">
   <view class="login_options">
@@ -70,13 +72,12 @@
     <view class="tips">手机号快捷登录</view>
     <van-button type="primary" class="button" bind:tap="setMenu" open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber">
       <view class="van_button">
-        <image class="wx" src="/assets/images/weixin.svg" mode="" />
-        一键获取
+        <!-- <image class="wx" src="/assets/images/weixin.svg" mode="" /> -->
+        登录
       </view>
     </van-button>
   </view>
 </van-dialog>
-
 <!-- 怎么喝 -->
 <van-dialog show="{{ showDeskTypeMenu  }}" transition="fade" custom-style="top:410px!important" use-slot showConfirmButton="{{false}}">
   <view class="select_options">
@@ -122,7 +123,7 @@
 <!-- 开通会员 -->
 <van-action-sheet class="member_sheet_pup" bind:click-overlay='closePriceSheet' wx:if="{{ showPriceSheet }}" show="{{ showPriceSheet }}">
   <view class="sheet_member">
-    <member-popup bind:myevent="closeSheet"></member-popup>
+    <member-popup  bind:myevent="closeSheet"></member-popup>
   </view>
 </van-action-sheet>
 
@@ -135,7 +136,7 @@
     </view>
     <view class="foods_list">
       <block wx:for="{{cartList}}" wx:key="index">
-        <cart item="{{item}}" bind:myevent="changeCart"></cart>
+        <cart is_vip="{{is_vip}}" item="{{item}}" bind:myevent="changeCart"></cart>
       </block>
     </view>
   </view>

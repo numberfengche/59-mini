@@ -16,7 +16,7 @@
 
         <view class="foods" wx:for="{{item.item_list}}" wx:key="index" wx:for-item="foods">
             <view class="foods_img">
-              <image class="master_img" src="{{foods.cover_url?foods.cover_url:'https://59beer.oss-cn-chengdu.aliyuncs.com/mini/combo-icon.png'}}" mode=""/>
+              <image class="master_img" src="{{foods.cover_url}}" mode=""/>
               <view class="foods_info">
                 <view class="title">{{foods.title}}</view>
                 <view class="num">x{{foods.num}} </view>

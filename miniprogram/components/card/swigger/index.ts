@@ -9,6 +9,7 @@ Component({
     properties: {
       item: { type: Object, value: {} },
       num: { type: Number, value: 0 },
+      showBag:{type: Boolean, value: false}
     },
     observers: {
       'item': function (val) {
@@ -28,7 +29,8 @@ Component({
      * 组件的初始数据
      */
     data: {
-      number:0
+      number:0,
+      islogin:false
     },
 
     /**
@@ -74,13 +76,21 @@ Component({
             }
           },
           fail:()=>{
-            wx.showToast({
-              title:"您当前的饮酒模式为单点，若想改为畅饮，请联系服务人员",
-              icon:"none",
-              duration:2000
-            })
+            if(this.data.showBag){
+              wx.showToast({
+                title:"您当前的饮酒模式为单点，若想改为畅饮，请联系服务人员",
+                icon:"none",
+                duration:2000
+              })
+            }else{
+              wx.showToast({
+                title:"请先登录",
+                icon:"none",
+              })
+            }
+            
           }
         });
       }
-    }
+    },
 })

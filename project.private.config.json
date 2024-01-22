@@ -10,17 +10,17 @@
             "list": [
                 {
                     "name": "",
+                    "pathName": "pages/deskScan/index",
+                    "query": "scene=PlQhCQaCqvtox1ETJvfqew",
+                    "launchMode": "default",
+                    "scene": 1011
+                },
+                {
+                    "name": "",
                     "pathName": "pages/order_pay/index",
                     "query": "scene=ItWHBlFVnlnmk4kd2jFjtg",
                     "launchMode": "default",
                     "scene": null
-                },
-                {
-                    "name": "",
-                    "pathName": "pages/deskScan/index",
-                    "query": "scene=ItWHBlFVnlnmk4kd2jFjtg",
-                    "launchMode": "default",
-                    "scene": 1011
                 },
                 {
                     "name": "",

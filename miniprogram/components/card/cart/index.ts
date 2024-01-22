@@ -10,6 +10,10 @@ Component({
       item:{
         type:Object,
         value:{}
+      },
+      is_vip:{
+        type:Boolean,
+        value:false
       }
     },
     observers: {
@@ -23,7 +27,8 @@ Component({
      * 组件的初始数据
      */
     data: {
-      num:0
+      num:0,
+      is_vip:getApp().globalData.is_vip
     },
 
     /**
@@ -58,5 +63,5 @@ Component({
           },
         });
       }
-    }
+    },
 })
